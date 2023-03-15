@@ -1,9 +1,9 @@
 <?php
 class rout
 {
-  public $controller = "welcome";
+  public $controller = "home";
   public $method = "index";
-  public $params = [];
+  public $params = array();
   public function __construct()
   {
     $url = $this->url();
@@ -15,18 +15,17 @@ class rout
     require_once "../application/controllers/" . $this->controller . ".php";
     $this->controller = new $this->controller;
 
-    if (!empty($url[1]) && method_exists($this->controller , $url[1])) {
+    if (!empty($url[1]) && method_exists($this->controller, $url[1])) {
       $this->method = $url[1];
       unset($url[1]);
     }
 
-    if(!empty($url)){
-      $this->params=$url;
+    if (!empty($url)) {
+      $this->params = $url;
     }
-
-    call_user_func_array([$this->controller , $this->method],$this->params);
+    call_user_func_array([$this->controller, $this->method], array($this->params));
   }
-
+  
   public function url()
   {
     if (isset($_SERVER["REQUEST_URI"])) {
