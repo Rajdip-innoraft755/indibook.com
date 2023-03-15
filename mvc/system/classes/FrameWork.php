@@ -1,6 +1,5 @@
 <?php
-class frameWork
-{
+class FrameWork {
 	public function view($viewName)
 	{
 		if (file_exists("../application/views/$viewName.php")) {
@@ -10,8 +9,8 @@ class frameWork
 
 	public function model($modelName)
 	{
-		if (file_exists("../application/models/$modelName.php")) {
-			require_once "../application/models/$modelName.php";
+		if (file_exists("../application/models/". ucwords($modelName) . ".php")) {
+			require_once "../application/models/". ucwords($modelName) . ".php";
 			return new $modelName;
 		}
 	}
@@ -21,6 +20,4 @@ class frameWork
 		header("location:" . BASEURL . "/" . $path);
 	}
 }
-
-
 ?>

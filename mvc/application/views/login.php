@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>INDIBOOK.COM</title>
-	<link rel="stylesheet" href="<?php echo BASEURL ?>/assets/css/homeIndex.css">
+	<link rel="stylesheet" href="/assets/css/homeIndex.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -15,7 +15,7 @@
 		</div>
 		<div class="form-container">
 			<div class="form-inner">
-				<form action="<?php echo BASEURL; ?>/home/login/" method="POST" class="login">
+				<form action="/home/login/" method="POST" class="login">
 					<div>
 						<span class="error">
 							<?php if (isset($_SESSION["errorMsg"])) {
@@ -37,7 +37,7 @@
 						<div class="btn-layer"></div>
 						<input id="login-btn" type="submit" value="Login">
 					</div>
-					<div class="signup-link">Not a member? <a href="<?php echo BASEURL; ?>/home/register">Signup now</a>
+					<div class="signup-link">Not a member? <a href="/home/register">Signup now</a>
 					</div>
 				</form>
 			</div>

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>INDIBOOK.COM</title>
-	<link rel="stylesheet" href="<?php echo BASEURL ?>/assets/css/homeIndex.css">
+	<link rel="stylesheet" href="/assets/css/homeIndex.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -15,7 +15,7 @@
 		</div>
 		<div class="form-container">
 			<div class="form-inner">
-				<form action="<?php echo BASEURL; ?>/home/register" class="signup" method="POST">
+				<form action="/home/register" class="signup" method="POST">
 					<div class="field" id="fName">
 						<input type="text" placeholder="First Name"  name="fName" required>
 						<label class="error">
@@ -73,8 +73,8 @@
 			</div>
 		</div>
 	</div>
-	<script src="<?php echo BASEURL ?>/assets/js/jquery.min.js"></script>
-	<script src="<?php echo BASEURL ?>/assets/js/register.js"></script>
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/register.js"></script>
 
 </body>
 

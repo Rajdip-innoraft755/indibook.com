@@ -103,19 +103,31 @@ body {
   width: 20%;
   justify-content: space-around;
 }
-.post-content {
+.post-content,.comment-text {
   color: #784f7c;
 }
-.post-reaction {
+.react-icon {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 10px 0px;
+  justify-content: right;
+  padding: 10px;
   border: none;
+  column-gap: 20px;
   border-radius: 10px;
-  box-shadow: 0px 2px 20px 6px #d01fb373;
 }
 .react,.comment{
-  width: 50%;
   text-align: center;
 }
+.react button,.comment button{
+  border: none;
+  background: transparent;
+}
+.react button i,.comment button i{
+  font-size: 30px;
+  color: #fa4299;
+  transition: all 0.3s ease;
+}
+.react button i:hover,.comment button i:hover{
+  color: #784f7c;
+}
+

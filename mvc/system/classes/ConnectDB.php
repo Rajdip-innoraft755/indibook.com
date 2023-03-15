@@ -1,8 +1,7 @@
 <?php
 
 require_once "../config/config.php";
-class connectDB
-{
+class ConnectDB {
 	public $conn;
 	public function __construct()
 	{
@@ -17,6 +16,4 @@ class connectDB
 		return $result;
 	}
 }
-
-
 ?>

@@ -1,17 +1,15 @@
 <?php
-class rout
-{
-  public $controller = "home";
+class Route {
+  public $controller = "Home";
   public $method = "index";
   public $params = array();
   public function __construct()
   {
     $url = $this->url();
-    if (file_exists("../application/controllers/" . trim($url[0]) . ".php")) {
-      $this->controller = $url[0];
+    if (file_exists("../application/controllers/" . ucwords((trim($url[0]))) . ".php")) {
+      $this->controller = ucwords(trim($url[0]));
       unset($url[0]);
     }
-
     require_once "../application/controllers/" . $this->controller . ".php";
     $this->controller = new $this->controller;
 
@@ -25,7 +23,7 @@ class rout
     }
     call_user_func_array([$this->controller, $this->method], array($this->params));
   }
-  
+
   public function url()
   {
     if (isset($_SERVER["REQUEST_URI"])) {

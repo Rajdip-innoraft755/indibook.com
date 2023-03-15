@@ -5,6 +5,7 @@
 	define("USERNAME","root");
 	define("PASSWORD","Rajdip@2001");
 	define("DATABASE","indibook");
+	//URL configuration
 	define("BASEURL", "http://indibook.com");
 	
 

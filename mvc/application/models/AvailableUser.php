@@ -1,5 +1,5 @@
 <?php
-class availableUser extends connectDB{
+class AvailableUser extends ConnectDB {
 	public function isAvailable(){
 		$userId = $_POST["userId"];
 		$sql="select userId from user_details;";
@@ -15,7 +15,5 @@ class availableUser extends connectDB{
 			}
 		}
 	}
-}
-
-            
+}            
 ?>

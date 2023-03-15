@@ -1,7 +1,6 @@
 <?php
 
-class login extends connectDB
-{
+class Login extends ConnectDB {
 	public $userId = "";
 	public $password = "";
 

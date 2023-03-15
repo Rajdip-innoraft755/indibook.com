@@ -1,6 +1,5 @@
 <?php
-class home extends frameWork
-{
+class Home extends FrameWork {
 	public function index()
 	{
 		$this->view("login");
@@ -23,7 +22,7 @@ class home extends frameWork
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$myModel = $this->model("register");
 			if ($myModel->setter($_POST["fName"], $_POST["lName"], $_POST["userId"], $_POST["emailId"], $_POST["password"])) {
-				$this->redirect("landing");
+				$this->redirect("home/login");
 			} else {
 				$this->redirect("home/register");
 			}

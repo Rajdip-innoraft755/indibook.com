@@ -1,6 +1,5 @@
 <?php
-class register extends connectDB
-{
+class Register extends ConnectDB {
 	public $fName = "";
 	public $lName = "";
 	public $userID = "";

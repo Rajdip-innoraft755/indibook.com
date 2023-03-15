@@ -1,6 +1,6 @@
 <?php
 
-	class landing extends frameWork{
+	class Landing extends FrameWork{
 		public function index(){
 			$this->view("landing");
 		}

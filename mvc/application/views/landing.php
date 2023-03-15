@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>INDIBOOK.COM</title>
-	<link rel="stylesheet" href="<?php echo BASEURL ?>/assets/css/landing.css">
+	<link rel="stylesheet" href="/assets/css/landing.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 
 			<div class="navbar">
 				<div class="logo">
-					<a href="#"><img src="<?php echo BASEURL ?>/assets/img/logo.png" alt="">
+					<a href="#"><img src="/assets/img/logo.png" alt="">
 						<p>INDIBOOK</p>
 					</a>
 				</div>
@@ -42,7 +42,7 @@
 							<a href="">
 								<div class="user">
 									<div class="profile-pic">
-										<img src="<?php echo BASEURL ?>/assets/img/logo.png" alt="">
+										<img src="/assets/img/logo.png" alt="">
 									</div>
 									<div class="user-name">
 										<h4>user name</h4>
@@ -60,7 +60,7 @@
 							<div class="post-item">
 								<div class="post-author">
 									<div class="profile-pic">
-										<img src="<?php echo BASEURL ?>/assets/img/logo.png" alt="">
+										<img src="/assets/img/logo.png" alt="">
 									</div>
 									<div class="user-name">
 										<h4>user name</h4>
@@ -78,14 +78,32 @@
 									</div>
 								</div>
 								<div class="post-reaction">
-									<div class="react">
-										<button>like</button>
-									</div>
-									<div class="comment">
-										<button>Comment</button>
-										<div class="comment-section">
-
+									<div class="react-icon">
+										<div class="react">
+											<button><i class="fa-regular fa-heart react"></i></button>
 										</div>
+										<div class="comment">
+											<button><i class="fa-regular fa-comment"></i></button>
+										</div>
+									</div>
+									<div class="comment-section">
+										<?php
+										for ($j = 0; $j < 3; $j++) {
+											?>
+											<div class="comment-item">
+												<div class="comment-author">
+													<h5>User Name</h5>
+												</div>
+												<div class="comment-text">
+													<p>
+														Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, distinctio totam. In
+														provident dolorum sapiente officiis odio recusandae
+													</p>
+												</div>
+											</div>
+											<?php
+										}
+										?>
 									</div>
 								</div>
 							</div>
@@ -99,7 +117,11 @@
 		</section>
 	</div>
 
-	
+	<!-- <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"
+		integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous">
+	</script> -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/landing.js"></script>
 	<script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
 </body>
 
