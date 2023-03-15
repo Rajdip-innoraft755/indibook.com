@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background: -webkit-linear-gradient(left, #a445b2, #fa4299);
+  color: white;
+}
+.container {
+  max-width: 1180px;
+  margin: 0px auto;
+  padding: 0px;
+}
+.navbar {
+  margin: 20px 0px;
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+}
+.navbar:hover {
+  box-shadow: 2px 2px 20px 9px #9996c3;
+}
+.logo img {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+.logo a {
+  text-decoration: none;
+  color: #fa4299;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.logo a p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.logo a:hover > p {
+  /* background-color: white; */
+  color: #a445b2;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.active-user {
+  width: 20%;
+}
+.active-user a {
+  text-decoration: none;
+}
+.user {
+  display: flex;
+  margin: 10px 0px;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 20px;
+}
+.user:hover,
+.post-item:hover {
+  box-shadow: 2px 2px 9px 2px #9996c3;
+}
+.user:hover > .user-name {
+  color: #a445b2;
+}
+.profile-pic img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.user-name {
+  color: #fa4299;
+}
+
+.posts {
+  width: 70%;
+}
+.post-item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.post-author {
+  display: flex;
+  align-items: center;
+  width: 20%;
+  justify-content: space-around;
+}
+.post-content {
+  color: #784f7c;
+}
+.post-reaction {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 2px 20px 6px #d01fb373;
+}
+.react,.comment{
+  width: 50%;
+  text-align: center;
+}
