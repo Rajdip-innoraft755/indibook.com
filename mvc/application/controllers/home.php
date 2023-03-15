@@ -44,5 +44,3 @@ class home extends frameWork
 		$myModel->isValidUser();
 	}
 }
-
-?>
