@@ -49,6 +49,11 @@ $(document).ready(function () {
       enableBtn();
     }
   });
+  $("#eye").click(function(){
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+    $("#pass").attr("type", type);
+  });
   $("#userId>input").blur(function () {
     var userid = $(this).val();
     $.ajax({

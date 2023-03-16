@@ -17,7 +17,7 @@
 			<div class="form-inner">
 				<form action="/home/register" class="signup" method="POST">
 					<div class="field" id="fName">
-						<input type="text" placeholder="First Name"  name="fName" required>
+						<input type="text" placeholder="First Name" name="fName" required>
 						<label class="error">
 							<?php if (isset($_SESSION["Err"]["fName"])) {
 								echo $_SESSION["Err"]["fName"];
@@ -26,7 +26,7 @@
 						</label>
 					</div>
 					<div class="field" id="lName">
-						<input type="text" placeholder="Last Name"  name="lName" required>
+						<input type="text" placeholder="Last Name" name="lName" required>
 						<label class="error">
 							<?php if (isset($_SESSION["Err"]["lName"])) {
 								echo $_SESSION["Err"]["lName"];
@@ -35,7 +35,7 @@
 						</label>
 					</div>
 					<div class="field" id="userId">
-						<input type="text" placeholder="User ID"  name="userId" required>
+						<input type="text" placeholder="User ID" name="userId" required>
 						<label class="error">
 							<?php if (isset($_SESSION["Err"]["userId"])) {
 								echo $_SESSION["Err"]["userId"];
@@ -44,7 +44,7 @@
 						</label>
 					</div>
 					<div class="field" id="emailId">
-						<input type="text" placeholder="Email Address"  name="emailId" required>
+						<input type="text" placeholder="Email Address" name="emailId" required>
 						<label class="error">
 							<?php if (isset($_SESSION["Err"]["emailId"])) {
 								echo $_SESSION["Err"]["emailId"];
@@ -53,7 +53,10 @@
 						</label>
 					</div>
 					<div class="field" id="password">
-						<input type="password" placeholder="Password"  name="password" required>
+						<div class="password-input">
+							<input type="password" placeholder="Password" id="pass" name="password" required>
+							<i id="eye" class="fa-regular fa-eye"></i></input>
+						</div>
 						<label class="error">
 							<?php if (isset($_SESSION["Err"]["password"])) {
 								echo $_SESSION["Err"]["password"];
@@ -63,7 +66,7 @@
 					</div>
 					<div class="field btn">
 						<div class="btn-layer"></div>
-						<input type="submit" value="Sign Up" id="signUp">	
+						<input type="submit" value="Sign Up" id="signUp">
 					</div>
 					<div class="field btn">
 						<div class="btn-layer"></div>
@@ -75,7 +78,7 @@
 	</div>
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/register.js"></script>
-
+	<script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

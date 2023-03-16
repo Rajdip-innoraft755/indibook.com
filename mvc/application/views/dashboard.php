@@ -11,25 +11,26 @@
 <body>
 	<div class="container">
 		<header>
-
 			<div class="navbar">
 				<div class="logo">
-					<a href="#"><img src="/assets/img/logo.png" alt="">
+					<a href="/landing"><img src="/assets/img/logo.png" alt="">
 						<p>INDIBOOK</p>
 					</a>
 				</div>
 				<div class="profile">
-					<a href="">
-						<h3>
-							<?php echo $_SESSION["userName"]; ?>
-						</h3>
-					</a>
+					<h3 id="slide-menu">
+						<?php echo Dashboard::$userName ?>
+					</h3>
+					<div class="profile-menu">
+						<ul>
+							<li><a href="/landing/profile">Profile</a></li>
+							<li><a href="">Logout</a></li>
+							<li><a href="">Delete Account</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
-
-
 		</header>
-
 
 		<section class="body">
 			<div class="container">
@@ -37,7 +38,7 @@
 					<div class="active-user">
 						<h2>Active Users</h2>
 						<?php
-						for ($i = 0; $i < 5; $i++) {
+						for ($i = 0; $i < Dashboard::$activeUserNo; $i++) {
 							?>
 							<a href="">
 								<div class="user">
@@ -45,7 +46,7 @@
 										<img src="/assets/img/logo.png" alt="">
 									</div>
 									<div class="user-name">
-										<h4>user name</h4>
+										<h4><?php echo Dashboard::$activeUserName[$i] ;?></h4>
 									</div>
 								</div>
 							</a>
@@ -53,9 +54,17 @@
 						}
 						?>
 					</div>
+
 					<div class="posts">
+						<div class="user-post">
+							<form class="post-input" method="POST" action="/landing/post">
+								<textarea name="postContent" id=""  placeholder="whats on your mind"></textarea>
+								</textarea>
+								<button><i class="fa-solid fa-paper-plane"><input type="submit" value=""></i></button> 
+							</form>
+						</div>
 						<?php
-						for ($i = 0; $i < 10; $i++) {
+						for ($i = 0; $i < Dashboard::$postNo; $i++) {
 							?>
 							<div class="post-item">
 								<div class="post-author">
@@ -63,7 +72,7 @@
 										<img src="/assets/img/logo.png" alt="">
 									</div>
 									<div class="user-name">
-										<h4>user name</h4>
+										<h4><?php echo Dashboard::$postAutor[$i] ;?></h4>
 									</div>
 								</div>
 								<div class="post-content">
@@ -71,10 +80,9 @@
 
 									</div>
 									<div class="text-box">
-										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus nulla ipsa adipisci ea alias
-											incidunt, voluptates dicta provident, reiciendis, deserunt id eius quos nam et. Rerum quibusdam vel
-											itaque dolorum!
-										</p>
+										<?php
+											echo Dashboard::$postContent[$i];
+										?>
 									</div>
 								</div>
 								<div class="post-reaction">
@@ -82,11 +90,11 @@
 										<div class="react">
 											<button><i class="fa-regular fa-heart react"></i></button>
 										</div>
-										<div class="comment">
-											<button><i class="fa-regular fa-comment"></i></button>
+										<div class="comment" id="comment">
+											<button><i class="fa-regular fa-comment comment-btn"></i></button>
 										</div>
 									</div>
-									<div class="comment-section">
+									<div class="comment-section" id="comment-section">
 										<?php
 										for ($j = 0; $j < 3; $j++) {
 											?>
@@ -110,7 +118,6 @@
 							<?php
 						}
 						?>
-
 					</div>
 				</div>
 			</div>

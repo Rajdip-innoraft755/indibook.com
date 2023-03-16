@@ -18,10 +18,7 @@
 				<form action="/home/login/" method="POST" class="login">
 					<div>
 						<span class="error">
-							<?php if (isset($_SESSION["errorMsg"])) {
-								echo $_SESSION["errorMsg"];
-								unset($_SESSION["errorMsg"]);
-							} ?>
+							<?php  echo ErrorMsg::getter("logIn"); ?>
 						</span>
 					</div>
 					<div class="field" id="userId">
@@ -29,7 +26,10 @@
 						<span class="error"></span>
 					</div>
 					<div class="field" id="password">
-						<input type="password" placeholder="Password" name="password" required>
+						<div class="password-input">
+							<input type="password" placeholder="Password" id="pass" name="password" required>
+							<i id="eye" class="fa-regular fa-eye"></i></input>
+						</div>
 						<span class="error"></span>
 					</div>
 					<div class="pass-link"><a href="#">Forgot password?</a></div>
@@ -45,7 +45,7 @@
 	</div>
 	<script src="<?php echo BASEURL ?>/assets/js/jquery.min.js"></script>
 	<script src="<?php echo BASEURL ?>/assets/js/login.js"></script>
-
+	<script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>						
 </body>
 
 </html>

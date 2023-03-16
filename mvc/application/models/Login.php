@@ -13,13 +13,14 @@ class Login extends ConnectDB {
 		$sql = "select * from user_details where userId='$this->userId' and password=MD5('$this->password');";
 		$result = $this->query($sql);
 		if($result->num_rows == 0){
-			$_SESSION["errorMsg"]="* Invalid Credentials.";
+			ErrorMsg::setter("logIn","* Invalid credentials");
 			return false;
 		}
 		else{
 			while(($row = $result->fetch_assoc())){
+				session_start();
 				$_SESSION["active"]=TRUE;
-				$_SESSION["userName"]=ucwords($row["fName"] . " " . $row["lName"]);
+				$_SESSION["userId"]=ucwords($row["userId"]);
 			}
 		}
 		return true;

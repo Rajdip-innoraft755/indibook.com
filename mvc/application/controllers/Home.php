@@ -6,14 +6,14 @@ class Home extends FrameWork {
 	}
 	public function login()
 	{
-		$this->view("login");
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$myModel = $this->model("login");
 			if ($myModel->setter($_POST["userId"], $_POST["password"])) {
 				$this->redirect("landing");
-			} else {
-				$this->redirect("");
 			}
+			else{
+				$this->view("login");
+			} 
 		}
 	}
 	public function register()
@@ -28,10 +28,6 @@ class Home extends FrameWork {
 			}
 		}
 	}
-	public function landing()
-	{
-		$this->view("landing");
-	}
 	public function availableUser()
 	{
 		$myModel = $this->model("availableUser");
@@ -41,5 +37,9 @@ class Home extends FrameWork {
 	{
 		$myModel = $this->model("validUser");
 		$myModel->isValidUser();
+	}
+	public function logout(){
+		session_start();
+		session_destroy();
 	}
 }
