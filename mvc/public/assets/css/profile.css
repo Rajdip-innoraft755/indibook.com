@@ -162,6 +162,12 @@ body {
   display: flex;
   column-gap: 20px;
 }
+.first-name{
+  width: 50%;
+}
+.last-name{
+  width: 50%;
+}
 .password-input {
   display: flex;
   align-items: center;
@@ -203,4 +209,11 @@ form .btn input[type="submit"]{
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+}
+form .btn input[type="submit"]:disabled{
+  background: gray;
+  color: white;
+}
+.error{
+  color: red;
 }

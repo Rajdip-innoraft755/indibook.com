@@ -19,37 +19,37 @@
 
 					<div class="field" id="fName">
 						<input type="text" placeholder="First Name" name="fName" required>
-						<label class="error">
+						<span class="error">
 							<?php if (isset($_SESSION["Err"]["fName"])) {
 								echo $_SESSION["Err"]["fName"];
 								unset($_SESSION["Err"]["fName"]);
 							} ?>
-						</label>
+						</span>
 					</div>
 
 
 					<div class="field" id="lName">
 						<input type="text" placeholder="Last Name" name="lName" required>
-						<label class="error">
+						<span class="error">
 							<?php if (isset($_SESSION["Err"]["lName"])) {
 								echo $_SESSION["Err"]["lName"];
 								unset($_SESSION["Err"]["lName"]);
 							} ?>
-						</label>
+						</span>
 					</div>
 
 
 					<div class="field" id="userId">
 						<input type="text" placeholder="User ID" name="userId" required>
-						<label class="error">
+						<span class="error">
 							<?php if (isset($_SESSION["Err"]["userId"])) {
 								echo $_SESSION["Err"]["userId"];
 								unset($_SESSION["Err"]["userId"]);
 							} ?>
-						</label>
+						</span>
 					</div>
 
-					<label id="file-upload-label">Choose your profile picture</label>
+					<span id="file-upload-label">Choose your profile picture</span>
 					<div class="field" id="imgUpload">		
 						<i class="fa-solid fa-file-arrow-up" id="file-upload-btn"></i>
 						<input type="file" id="file-upload-input" accept="image/*" name="imgUpload" >
@@ -57,12 +57,12 @@
 
 					<div class="field" id="emailId">
 						<input type="text" placeholder="Email Address" name="emailId" required>
-						<label class="error">
+						<span class="error">
 							<?php if (isset($_SESSION["Err"]["emailId"])) {
 								echo $_SESSION["Err"]["emailId"];
 								unset($_SESSION["Err"]["emailId"]);
 							} ?>
-						</label>
+						</span>
 					</div>
 
 
@@ -71,12 +71,12 @@
 							<input type="password" placeholder="Password" id="pass" name="password" required>
 							<i id="eye" class="fa-regular fa-eye"></i></input>
 						</div>
-						<label class="error">
+						<span class="error">
 							<?php if (isset($_SESSION["Err"]["password"])) {
 								echo $_SESSION["Err"]["password"];
 								unset($_SESSION["Err"]["password"]);
 							} ?>
-						</label>
+						</span>
 					</div>
 
 

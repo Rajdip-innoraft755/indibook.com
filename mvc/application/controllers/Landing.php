@@ -38,8 +38,16 @@ class Landing extends FrameWork
 	{
 		session_start();
 		$myModel = $this->model("updateProfile");
-		$myModel->isValid($_POST["fName"],$_POST["lName"],$_POST["emailId"],$_POST["bio"],$_POST["password"]);
-		$this->profile();
+		if($myModel->isValid($_POST["fName"],$_POST["lName"],$_POST["emailId"],$_POST["bio"],$_POST["password"])){
+			$this->profile();
+		}
+		else{
+			$this->view("profile");
+		}
+	}
+	public function validPassword(){
+		$myModel = $this->model("validPassword");
+		$myModel->isValidPassword($_POST["password"]);
 	}
 }
 ?>

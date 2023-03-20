@@ -3,12 +3,14 @@ $(document).ready(function () {
   var $isValidPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/;
   var $isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   function disableBtn() {
-    $("#signUp").prop("disabled", true);
-    $("#signUp").addClass("disabled");
+    if($(".error").text() != ""){
+      $("#signUp").prop("disabled", true);
+    }
   }
   function enableBtn() {
-    $("#signUp").prop("disabled", false);
-    $("#signUp").removeClass("disabled");
+    if($(".error").text() == ""){
+      $("#signUp").prop("disabled", true);
+    }
   }
   $("#fName>input").blur(function () {
     if (!$isAlpha.test($(this).val())) {
@@ -63,14 +65,6 @@ $(document).ready(function () {
         $("#userId>.error").html(html);
       },
     });
-    console.log($("#userId>.error").html());
-    if($("#userId>.error").val() == "* User Id not available"){
-      console.log($("#userId>.error").text());
-      disableBtn();
-    }
-    else{
-      enableBtn();
-    }
   });
   $("#eye").click(function(){
     $(this).toggleClass("fa-eye fa-eye-slash");

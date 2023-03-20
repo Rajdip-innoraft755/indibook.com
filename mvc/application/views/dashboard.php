@@ -58,7 +58,7 @@
 					<div class="posts">
 						<div class="user-post">
 							<form class="post-input" method="POST" action="/landing/makePost">
-								<textarea name="postContent" id="postContent"  placeholder="whats on your mind"></textarea>
+								<textarea name="postContent" id="postContent"  placeholder="whats on your mind" required></textarea>
 								</textarea>
 								<button id="postBtn"><i class="fa-solid fa-paper-plane"><input type="submit" value=""></i></button> 
 							</form>

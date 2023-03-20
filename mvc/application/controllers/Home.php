@@ -45,3 +45,4 @@ class Home extends FrameWork {
 		$this->redirect("");
 	}
 }
+?>
