@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>INDIBOOK.COM</title>
-	<link rel="stylesheet" href="/assets/css/landing.css">
+	<link rel="stylesheet" href="/assets/css/dashboard.css">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 					<div class="profile-menu">
 						<ul>
 							<li><a href="/landing/profile">Profile</a></li>
-							<li><a href="">Logout</a></li>
+							<li><a href="/home/logout">Logout</a></li>
 							<li><a href="">Delete Account</a></li>
 						</ul>
 					</div>
@@ -43,7 +43,7 @@
 							<a href="">
 								<div class="user">
 									<div class="profile-pic">
-										<img src="/assets/img/logo.png" alt="">
+										<img src="<?php echo Dashboard::$activeUserProfilePic[$i]?>" alt="">
 									</div>
 									<div class="user-name">
 										<h4><?php echo Dashboard::$activeUserName[$i] ;?></h4>
@@ -57,10 +57,10 @@
 
 					<div class="posts">
 						<div class="user-post">
-							<form class="post-input" method="POST" action="/landing/post">
-								<textarea name="postContent" id=""  placeholder="whats on your mind"></textarea>
+							<form class="post-input" method="POST" action="/landing/makePost">
+								<textarea name="postContent" id="postContent"  placeholder="whats on your mind"></textarea>
 								</textarea>
-								<button><i class="fa-solid fa-paper-plane"><input type="submit" value=""></i></button> 
+								<button id="postBtn"><i class="fa-solid fa-paper-plane"><input type="submit" value=""></i></button> 
 							</form>
 						</div>
 						<?php
@@ -69,7 +69,7 @@
 							<div class="post-item">
 								<div class="post-author">
 									<div class="profile-pic">
-										<img src="/assets/img/logo.png" alt="">
+									<img src="<?php echo Dashboard::$postAuthorProfilePic[$i]; ?>" alt="">
 									</div>
 									<div class="user-name">
 										<h4><?php echo Dashboard::$postAutor[$i] ;?></h4>
@@ -128,7 +128,7 @@
 		integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous">
 	</script> -->
 	<script src="/assets/js/jquery.min.js"></script>
-	<script src="/assets/js/landing.js"></script>
+	<script src="/assets/js/dashboard.js"></script>
 	<script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
 </body>
 

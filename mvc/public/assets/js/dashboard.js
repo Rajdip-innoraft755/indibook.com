@@ -9,4 +9,13 @@ $(document).ready(function(){
   $("#slide-menu").click(function(){
     $(".profile-menu").slideToggle();
   });
+  $("#posContent").focus();
+  $("#postContent").blur(function(){
+    if($("#postContent").val().length == 0){
+      $("#postBtn").prop("disabled",true);
+    }
+    else{
+      $("#postBtn").prop("disabled",false);
+    }
+  });
 });

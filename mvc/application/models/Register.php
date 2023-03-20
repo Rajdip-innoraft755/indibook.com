@@ -5,9 +5,10 @@ class Register extends ConnectDB {
 	public $userID = "";
 	public $emailId= "";
 	public $password = "";
+	public $profilePic = "assets/img/default-dp.jpg";
 	public $uniqueId = "";
 	
-	public function setter($fName,$lName,$userID,$emailId,$password){
+	public function setter($fName,$lName,$userID,$emailId,$password,$imgUpload){
 		$_SESSION["Err"] = array();
 		$this->fName = $fName;
 		$this->lName = $lName;
@@ -15,6 +16,7 @@ class Register extends ConnectDB {
 		$this->emailId = $emailId;
 		$this->password = $password;
 		if($this->validate()){
+			$this->imgStoring($imgUpload);
 			$this->generateUniqueId();
 			$this->InsertData();
 			return true;
@@ -40,6 +42,14 @@ class Register extends ConnectDB {
 		}
 		return $this->validUser();
 	}	
+
+	public function imgStoring($imgUpload){
+		if(!empty($imgUpload["name"])){
+			$target_file = "assets/img/" . $this->userID . "-profile-pic-" .$imgUpload["name"];
+			move_uploaded_file($imgUpload["tmp_name"],$target_file);
+			$this->profilePic =		$target_file;
+		}
+	}
 	public function generateUniqueId(){
 		$t = time();
 		$this->uniqueId = date("Y-m-d H:i:s",$t) . $this->emailId ;
@@ -58,9 +68,10 @@ class Register extends ConnectDB {
 		}
 		return true;
 	}
+	
 	public function InsertData()
 	{
-		$sql = "insert into user_details values('$this->userID','$this->uniqueId','$this->fName','$this->lName','$this->emailId',MD5('$this->password'));";
+		$sql = "insert into user_details values('$this->userID','$this->uniqueId','$this->fName','$this->lName','$this->emailId',MD5('$this->password'),'$this->profilePic');";
 		$this->query($sql);
 	}
 }

@@ -79,7 +79,7 @@ input[type="radio"] {
   height: 100%;
   width: 100%;
   outline: none;
-  padding-left: 15px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid lightgrey;
   border-bottom-width: 2px;
@@ -144,7 +144,8 @@ form .btn .btn-layer {
 form .btn:hover .btn-layer {
   left: 0;
 }
-form .btn input[type="submit"],button {
+form .btn input[type="submit"],
+button {
   height: 100%;
   width: 100%;
   z-index: 1;
@@ -158,11 +159,11 @@ form .btn input[type="submit"],button {
   font-weight: 500;
   cursor: pointer;
 }
-form .btn input[type="submit"]:disabled{
+form .btn input[type="submit"]:disabled {
   color: #a445b2;
   background-color: #b3b3b3;
 }
-form .btn button a{
+form .btn button a {
   text-decoration: none;
   color: white;
   display: inline-block;
@@ -177,24 +178,54 @@ form .btn button a{
 }
 .password-input{
   display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    column-gap: 5px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    border-bottom-width: 2px;
-    padding: 0px 15px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  column-gap: 5px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  border-bottom-width: 2px;
+  padding: 0px 10px;
 }
-
-#pass{
+#imgUpload{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  border-bottom-width: 2px;
+  padding: 0px 10px;
+  justify-content: space-between;
+  cursor: pointer;
+  margin: 0px;
+}
+#pass {
   border: none;
   padding: 0px;
 }
-#pass:focus~.password-input{
+.password-input:focus {
   border-color: #fc83bb;
 }
 #eye{
   font-size: 17px;
   color: #a445b2;
+  cursor: pointer;
+}
+#file-upload-label{
+  display: inline-block;
+  margin: 20px 5px 0px;
+  color: slategray;
+  font-size: 17px;
+}
+#file-upload-btn {
+  font-size: 30px;
+  color: #a445b2;
+}
+#file-upload-input::-webkit-file-upload-button {
+  display: none;
+}
+#file-upload-input{
+  border:none;
+  width: 80%;
+  cursor: pointer;
 }

@@ -15,7 +15,8 @@
 		</div>
 		<div class="form-container">
 			<div class="form-inner">
-				<form action="/home/register" class="signup" method="POST">
+				<form action="/home/register" class="signup" method="POST" enctype="multipart/form-data">
+
 					<div class="field" id="fName">
 						<input type="text" placeholder="First Name" name="fName" required>
 						<label class="error">
@@ -25,6 +26,8 @@
 							} ?>
 						</label>
 					</div>
+
+
 					<div class="field" id="lName">
 						<input type="text" placeholder="Last Name" name="lName" required>
 						<label class="error">
@@ -34,6 +37,8 @@
 							} ?>
 						</label>
 					</div>
+
+
 					<div class="field" id="userId">
 						<input type="text" placeholder="User ID" name="userId" required>
 						<label class="error">
@@ -43,6 +48,13 @@
 							} ?>
 						</label>
 					</div>
+
+					<label id="file-upload-label">Choose your profile picture</label>
+					<div class="field" id="imgUpload">		
+						<i class="fa-solid fa-file-arrow-up" id="file-upload-btn"></i>
+						<input type="file" id="file-upload-input" accept="image/*" name="imgUpload" >
+					</div>
+
 					<div class="field" id="emailId">
 						<input type="text" placeholder="Email Address" name="emailId" required>
 						<label class="error">
@@ -52,6 +64,8 @@
 							} ?>
 						</label>
 					</div>
+
+
 					<div class="field" id="password">
 						<div class="password-input">
 							<input type="password" placeholder="Password" id="pass" name="password" required>
@@ -64,10 +78,14 @@
 							} ?>
 						</label>
 					</div>
+
+
 					<div class="field btn">
 						<div class="btn-layer"></div>
 						<input type="submit" value="Sign Up" id="signUp">
 					</div>
+
+
 					<div class="field btn">
 						<div class="btn-layer"></div>
 						<button><a href="<?php echo BASEURL; ?>">Go Back</a></button>
