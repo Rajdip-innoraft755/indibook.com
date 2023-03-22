@@ -4,23 +4,25 @@ $(document).ready(function () {
   var $isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   function disableBtn() {
     if($(".error").text() != ""){
-      $("#signUp").prop("disabled", true);
+      $("#signup").attr("disabled", true);
     }
   }
   function enableBtn() {
-    if($(".error").text() == ""){
-      $("#signUp").prop("disabled", true);
+    if($.trim($(".error").text()) == "" || $.trim($(".error").text()) == "Strong Password"){
+      $("#signup").attr("disabled", false);
     }
   }
   $("#fName>input").blur(function () {
     if (!$isAlpha.test($(this).val())) {
       $("#fName>.error").html("* only alphapets are allowed.");
       disableBtn();
-    } else {
+    } 
+    else {
       $("#fName>.error").html("");
       enableBtn();
     }
   });
+
   $("#lName>input").blur(function () {
     if (!$isAlpha.test($(this).val())) {
       $("#lName>.error").html("* only alphapets are allowed.");
@@ -42,6 +44,12 @@ $(document).ready(function () {
       $("#emailId>.error").html("");
       enableBtn();
     }
+  });
+  $("#pass").click(function(){
+    alert(
+      "Password should be 8-15 character and contains \n atleast 1 uppcase \n atleast 1" +
+      "lowercase \n atleast 1 special character(@ , # , $ , ? , ! , % , &) \n atleast 1 number"
+    );
   });
   $("#pass").keyup(function () {
     if (!$isValidPassword.test($(this).val())) {

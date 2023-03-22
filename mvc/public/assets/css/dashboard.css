@@ -164,11 +164,20 @@ body {
   color: #fa4299;
   font-size: 30px;
 }
-.post-input button{
+#file-upload-input {
+  display: none;
+}
+#preview {
+  display: none;
+  height: 100px;
+  width: 100px;
+  border-radius: 20px;
+}
+.post-input button {
   border: none;
   background: transparent;
 }
-.post-input button input{
+.post-input button input {
   border: none;
 }
 .post-author {
@@ -177,9 +186,14 @@ body {
   width: 20%;
   justify-content: space-around;
 }
+.image img {
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
 .post-content,
 .comment-item {
   color: #784f7c;
+  padding: 0px 10px;
 }
 .react-icon {
   display: flex;
@@ -214,4 +228,38 @@ body {
 }
 .hide {
   display: none;
+}
+.loader {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: loader;
+  animation-duration: 0.5s;
+}
+.show-more {
+  text-align: center;
+  margin: 10px 0px 50px;
+}
+.show-more input[type="button"] {
+  padding: 10px;
+  z-index: 1;
+  background: -webkit-linear-gradient(
+    right,
+    #253dd2,
+    #4263fa,
+    #7f45b2,
+    #428afa
+  );
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.show-more input[type="button"]:hover {
+  color: #784f7c;
+  background: white;
 }

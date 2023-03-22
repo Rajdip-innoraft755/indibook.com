@@ -1,18 +1,18 @@
-$(document).ready(function(){
-  $("#slide-menu").click(function(){
+$(document).ready(function () {
+  $("#slide-menu").click(function () {
     $(".profile-menu").slideToggle();
   });
   var $isAlpha = /^[a-zA-Z ]*$/;
   var $isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   function disableBtn() {
-    if($(".error").text() != ""){
+    if ($(".error").text() != "") {
       $("#update").prop("disabled", true);
     }
   }
   function enableBtn() {
-    if($(".error").text() == ""){
+    if ($.trim(".error".text()) == "") {
       $("#update").prop("disabled", false);
-    } 
+    }
   }
   $("#fName>input").blur(function () {
     if (!$isAlpha.test($(this).val())) {
@@ -41,33 +41,45 @@ $(document).ready(function(){
       enableBtn();
     }
   });
-  $("#pass").keyup(function () {
-    $.ajax({
-      url: "/landing/validPassword",
-      method: "POST",
-      data: { password : $(this).val() },
-      datatype: "text",
-      success: function (data) {
-        if(data){
-          console.log(data);
-          $("#password>.error").html(data);
-          disableBtn();
-        }
-        else{
-          console.log(data);
-          $("#password>.error").html(data);
-          
-        }
-      },
-    });
-    enableBtn();
+  $("#pass").blur(function () {
+    var isError = true;
+    if ($.trim($(this).val()) != "") {
+      $.ajax({
+        url: "/landing/validPassword",
+        method: "POST",
+        data: { password: $(this).val() },
+        datatype: "text",
+        success: function (data) {
+          if (data) {
+            $("#password>.error").html(data);
+            isError = false;
+          }
+        },
+      });
+    }
+    if (isError == true) {
+      $("#update").prop("disabled", false);
+    } else {
+      $("#update").prop("disabled", true);
+    }
   });
-  $("#eye").click(function(){
+  $("#eye").click(function () {
     $(this).toggleClass("fa-eye fa-eye-slash");
     var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
     $("#pass").attr("type", type);
   });
-  $("#file-upload-btn").click(function(){
+  $("#file-upload-btn").click(function () {
     $("#file-upload-input").click();
+  });
+  $("#file-upload-input").change(function () {
+    console.log("hi");
+    var file = $(this).get(0).files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        $("#preview").attr("src",event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
   });
 });

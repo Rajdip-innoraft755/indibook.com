@@ -11,7 +11,7 @@
 <body>
 	<div class="wrapper">
 		<div class="title-text">
-			<div class="title signup">Signup Form</div>
+			<div class="title signup">USER REGISTRATION</div>
 		</div>
 		<div class="form-container">
 			<div class="form-inner">
@@ -19,22 +19,14 @@
 
 					<div class="field" id="fName">
 						<input type="text" placeholder="First Name" name="fName" required>
-						<span class="error">
-							<?php if (isset($_SESSION["Err"]["fName"])) {
-								echo $_SESSION["Err"]["fName"];
-								unset($_SESSION["Err"]["fName"]);
-							} ?>
-						</span>
+						<span class="error"><?php  ErrorMsg::getter("fName"); ?></span>
 					</div>
 
 
 					<div class="field" id="lName">
 						<input type="text" placeholder="Last Name" name="lName" required>
 						<span class="error">
-							<?php if (isset($_SESSION["Err"]["lName"])) {
-								echo $_SESSION["Err"]["lName"];
-								unset($_SESSION["Err"]["lName"]);
-							} ?>
+							<?php  ErrorMsg::getter("lName"); ?>
 						</span>
 					</div>
 
@@ -42,10 +34,7 @@
 					<div class="field" id="userId">
 						<input type="text" placeholder="User ID" name="userId" required>
 						<span class="error">
-							<?php if (isset($_SESSION["Err"]["userId"])) {
-								echo $_SESSION["Err"]["userId"];
-								unset($_SESSION["Err"]["userId"]);
-							} ?>
+							<?php ErrorMsg::getter("userId"); ?>
 						</span>
 					</div>
 
@@ -58,10 +47,7 @@
 					<div class="field" id="emailId">
 						<input type="text" placeholder="Email Address" name="emailId" required>
 						<span class="error">
-							<?php if (isset($_SESSION["Err"]["emailId"])) {
-								echo $_SESSION["Err"]["emailId"];
-								unset($_SESSION["Err"]["emailId"]);
-							} ?>
+							<?php echo ErrorMsg::getter("emailId"); ?>
 						</span>
 					</div>
 
@@ -72,17 +58,14 @@
 							<i id="eye" class="fa-regular fa-eye"></i></input>
 						</div>
 						<span class="error">
-							<?php if (isset($_SESSION["Err"]["password"])) {
-								echo $_SESSION["Err"]["password"];
-								unset($_SESSION["Err"]["password"]);
-							} ?>
+							<?php ErrorMsg::getter("password"); ?>
 						</span>
 					</div>
 
 
 					<div class="field btn">
 						<div class="btn-layer"></div>
-						<input type="submit" value="Sign Up" id="signUp">
+						<input type="submit" value="Register" id="signup">
 					</div>
 
 

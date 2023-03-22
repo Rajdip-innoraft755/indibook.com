@@ -7,9 +7,9 @@ class Register extends ConnectDB {
 	public $password = "";
 	public $profilePic = "assets/img/default-dp.jpg";
 	public $uniqueId = "";
+
 	
 	public function setter($fName,$lName,$userID,$emailId,$password,$imgUpload){
-		$_SESSION["Err"] = array();
 		$this->fName = $fName;
 		$this->lName = $lName;
 		$this->userID = $userID;
@@ -25,19 +25,19 @@ class Register extends ConnectDB {
 	}
 	public function validate(){
 		if(!(preg_match("/^[a-zA-Z ]*$/",$this->fName))){
-			$_SESSION["Err"]["fName"] = "* only contains alphabet.";
+			ErrorMsg::setter("fName","* first name only contains alphabet.");
 			return false;
 		}
 		if(!(preg_match("/^[a-zA-Z ]*$/",$this->lName))){
-			$_SESSION["Err"]["lName"] = "* only contains alphabet.";
+			ErrorMsg::setter("lName","* last name only contains alphabet.");
 			return false;
 		}
 		if(!(preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",$this->emailId))){
-			$_SESSION["Err"]["emailId"] = "* not a valid email.";
+			ErrorMsg::setter("emailId","* not a valid email.");
 			return false;
 		}
 		if(!(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/",$this->password))){
-			$_SESSION["Err"]["password"] = "* weak password.";
+			ErrorMsg::setter("password","* weak password.");
 			return false;
 		}
 		return $this->validUser();
@@ -61,7 +61,7 @@ class Register extends ConnectDB {
 		if($result->num_rows > 0){
 			while($row = $result->fetch_assoc()){
 				if($userId == $row["userId"]){
-					$_SESSION["Err"]["userId"] = "* user id already exists.";
+					ErrorMsg::setter("userId","* user id already exists.");
 					return false;
 				}
 			}
@@ -71,7 +71,7 @@ class Register extends ConnectDB {
 	
 	public function InsertData()
 	{
-		$sql = "insert into user_details values('$this->userID','$this->uniqueId','$this->fName','$this->lName','$this->emailId',MD5('$this->password'),'$this->profilePic');";
+		$sql = "insert into user_details values('$this->userID','$this->uniqueId','$this->fName','$this->lName','$this->emailId',MD5('$this->password'),'$this->profilePic','');";
 		$this->query($sql);
 	}
 }

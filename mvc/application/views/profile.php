@@ -10,7 +10,6 @@
 
 <body>
   <div class="container">
-
     <header>
       <div class="navbar">
         <div class="logo">
@@ -38,7 +37,9 @@
         <div class="wrapper">
           <div class="left">
             <div class="profile-pic">
-              <img src="<?php echo Profile::$profilePic ?>" alt="">
+              <img id ="preview" src="<?php echo Profile::$profilePic ?>" alt="">
+              <i class="fa-solid fa-file-arrow-up" id="file-upload-btn"></i>
+              <input type="file" id="file-upload-input" accept="image/*" name="imgUpload">
             </div>
             <div class="bio">
               <h3 class="tittle">Your Bio ...</h3>
@@ -51,25 +52,28 @@
             <div class="input-field name">
               <div class="first-name" id="fName">
                 <h3 class="tittle">First Name</h3>
-                <input type="text"  placeholder="your first name" name="fName" value="<?php echo isset($_POST["fName"]) ? $_POST["fName"] : Profile::$fName ;?>" required>
+                <input type="text" placeholder="your first name" name="fName"
+                  value="<?php echo isset($_POST["fName"]) ? $_POST["fName"] : Profile::$fName; ?>" required>
                 <span class="error"></span>
               </div>
               <div class="last-name" id="lName">
                 <h3 class="tittle">Last Name</h3>
-                <input type="text"  placeholder="your last name" name="lName" value="<?php echo Profile::$lName;?>" required>
+                <input type="text" placeholder="your last name" name="lName" value="<?php echo Profile::$lName; ?>"
+                  required>
                 <span class="error"></span>
               </div>
             </div>
 
             <div class="input-field ">
               <h3 class="tittle">User Id</h3>
-              <input type="text"  placeholder="your user Id" name="userId" value="<?php echo $_SESSION["userId"] ?>"
+              <input type="text" placeholder="your user Id" name="userId" value="<?php echo $_SESSION["userId"] ?>"
                 readonly>
             </div>
 
             <div class="input-field" id="emailId">
               <h3 class="tittle">Email ID</h3>
-              <input type="text" placeholder="your email Id" name="emailId" value="<?php echo Profile::$emailId ?>" required>
+              <input type="text" placeholder="your email Id" name="emailId" value="<?php echo Profile::$emailId ?>"
+                required>
               <span class="error"></span>
             </div>
 

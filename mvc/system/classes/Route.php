@@ -21,7 +21,7 @@ class Route {
     if (!empty($url)) {
       $this->params = $url;
     }
-    call_user_func_array([$this->controller, $this->method], array($this->params));
+    call_user_func_array([$this->controller, $this->method], $this->params);
   }
 
   public function url()

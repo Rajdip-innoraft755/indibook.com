@@ -4,6 +4,9 @@ class Home extends FrameWork {
 	{
 		$this->view("login");
 	}
+	public function registerview(){
+		$this->view("register");
+	}
 	public function login()
 	{
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -18,14 +21,12 @@ class Home extends FrameWork {
 	}
 	public function register()
 	{
-		$this->view("register");
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$myModel = $this->model("register");
-			print_r($_FILES);
 			if ($myModel->setter($_POST["fName"], $_POST["lName"], $_POST["userId"], $_POST["emailId"], $_POST["password"], $_FILES["imgUpload"])) {
 				$this->redirect("");
 			} else {
-				$this->redirect("home/register");
+				$this->view("register");
 			}
 		}
 	}
@@ -43,6 +44,23 @@ class Home extends FrameWork {
 		session_start();
 		session_destroy();
 		$this->redirect("");
+	}
+	public function forgotpassword($params){
+		$myModel = $this->model("forgotPassword");
+		switch($params){
+			case "index":
+				$this->view("forgotpassword");
+				break;
+			case "sendmail":
+				$myModel->sendmail($_POST["userId"]);
+				break;
+			case "verifyotp":
+				$myModel->verifyotp($_POST["otp"]);
+				break;
+			case "reset":
+				$myModel->reset($_POST["password"]);
+		}
+		
 	}
 }
 ?>

@@ -103,7 +103,7 @@ body {
   width: 30%;
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 40px;
 }
 .right {
   width: 69%;
@@ -117,7 +117,20 @@ body {
   width: 100%;
 }
 .profile-pic {
-  width: 100%;
+  position: relative;
+  display: flex;
+}
+#file-upload-btn {
+  font-size: 50px;
+  color: white;
+  position: absolute;
+  bottom: -15px;
+  right: -10px;
+  background: #a445b2;
+  cursor: pointer;
+}
+#file-upload-input {
+  display: none;
 }
 .bio {
   width: 100%;
@@ -162,10 +175,10 @@ body {
   display: flex;
   column-gap: 20px;
 }
-.first-name{
+.first-name {
   width: 50%;
 }
-.last-name{
+.last-name {
   width: 50%;
 }
 .password-input {
@@ -190,10 +203,10 @@ body {
   font-size: 25px;
   cursor: pointer;
 }
-form .btn{
+form .btn {
   text-align: center;
 }
-form .btn input[type="submit"]{
+form .btn input[type="submit"] {
   padding: 10px;
   z-index: 1;
   background: -webkit-linear-gradient(
@@ -210,10 +223,12 @@ form .btn input[type="submit"]{
   font-weight: 500;
   cursor: pointer;
 }
-form .btn input[type="submit"]:disabled{
+form .btn input[type="submit"]:disabled {
   background: gray;
   color: white;
 }
-.error{
+.error {
   color: red;
 }
+
+

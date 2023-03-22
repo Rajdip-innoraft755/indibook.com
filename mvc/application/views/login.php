@@ -11,14 +11,14 @@
 <body>
 	<div class="wrapper">
 		<div class="title-text">
-			<div class="title login">Login Form</div>
+			<div class="title login">USER LOGIN</div>
 		</div>
 		<div class="form-container">
 			<div class="form-inner">
 				<form action="/home/login/" method="POST" class="login">
 					<div>
 						<span class="error">
-							<?php  echo ErrorMsg::getter("logIn"); ?>
+							<?php  ErrorMsg::getter("logIn"); ?>
 						</span>
 					</div>
 					<div class="field" id="userId">
@@ -32,19 +32,19 @@
 						</div>
 						<span class="error"></span>
 					</div>
-					<div class="pass-link"><a href="#">Forgot password?</a></div>
+					<div class="pass-link"><a href="/home/forgotpassword/index">Forgot password?</a></div>
 					<div class="field btn">
 						<div class="btn-layer"></div>
 						<input id="login-btn" type="submit" value="Login">
 					</div>
-					<div class="signup-link">Not a member? <a href="/home/register">Signup now</a>
+					<div class="signup-link">Not a member? <a href="/home/registerview">Signup now</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<script src="<?php echo BASEURL ?>/assets/js/jquery.min.js"></script>
-	<script src="<?php echo BASEURL ?>/assets/js/login.js"></script>
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/login.js"></script>
 	<script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>						
 </body>
 

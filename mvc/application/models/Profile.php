@@ -12,6 +12,7 @@ class Profile extends ConnectDB{
     while($row = $result->fetch_assoc()){
       Profile::$fName = ucwords($row["fName"]);
       Profile::$lName = ucwords($row["lName"]);
+      $_SESSION["userName"] = Profile::$fName . " " . Profile::$lName;
       Profile::$profilePic = "/".$row["profilePic"];
       Profile::$emailId = $row["emailId"];
       Profile::$bio = $row["bio"];
