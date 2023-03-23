@@ -189,11 +189,13 @@ body {
 .image img {
   border-radius: 20px;
   margin-bottom: 20px;
+  max-width: 100%;
 }
 .post-content,
 .comment-item {
   color: #784f7c;
   padding: 0px 10px;
+  font-size: 25px;
 }
 .react-icon {
   display: flex;

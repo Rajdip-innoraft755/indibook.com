@@ -39,6 +39,7 @@ class Landing extends FrameWork
 		session_start();
 		$myModel = $this->model("updateProfile");
 		if($myModel->isValid($_POST["fName"],$_POST["lName"],$_POST["emailId"],$_POST["bio"],$_POST["password"],$_FILES["imgUpload"])){
+			
 			$this->redirect("landing/profile");
 		}
 		else{

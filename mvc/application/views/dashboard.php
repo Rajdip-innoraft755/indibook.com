@@ -59,14 +59,11 @@
 
 					<div class="posts">
 						<div class="user-post">
-							<form class="post-input" method="POST" action="/landing/makePost">
+							<form class="post-input" method="POST" action="/landing/makePost" enctype="multipart/form-data">
 								<img id="preview" src="" alt="">
 								<textarea name="postContent" id="postContent" placeholder="whats on your mind" required></textarea>
-								</textarea>
-								<button>
-									<i class="fa-solid fa-camera" id="file-upload-btn"></i>
-									<input type="file" name="postImage" id="file-upload-input">
-								</button>
+									<i class="fa-solid fa-camera" id="file-upload-btn"></i>									
+									<input type="file" id="file-upload-input" accept="image/*" name="postImage">
 								<button id="postBtn"><i class="fa-solid fa-paper-plane"><input type="submit" value=""></i></button>
 							</form>
 						</div>
@@ -106,7 +103,7 @@
 									<!-- <div class="comment-section" id="comment-section">
 										<?php
 										// for ($j = 0; $j < 3; $j++) {
-											?>
+										?>
 											<div class="comment-item">
 												<div class="comment-author">
 													<h5>User Name</h5>
@@ -119,8 +116,8 @@
 												</div>
 											</div>
 											<?php
-										// }
-										?>
+											// }
+											?>
 									</div> -->
 								</div>
 							</div>

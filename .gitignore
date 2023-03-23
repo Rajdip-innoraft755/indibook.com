@@ -2,6 +2,8 @@ mvc/vendor/
 *.jpg
 *.png
 *.ico
+*.gif
+mvc/config/config.php
 mvc/public/assets/css/bootstrap.css
 mvc/public/assets/js/bootstrap.bundle.js
 mvc/public/assets/js/bootstrap.js

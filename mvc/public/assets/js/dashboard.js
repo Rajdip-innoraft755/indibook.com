@@ -9,7 +9,6 @@ $(document).ready(function(){
   $("#slide-menu").click(function(){
     $(".profile-menu").slideToggle();
   });
-  $("#posContent").focus();
   $("#postContent").blur(function(){
     if($("#postContent").val().length == 0){
       $("#postBtn").prop("disabled",true);
@@ -22,7 +21,6 @@ $(document).ready(function(){
     $("#file-upload-input").click();
   });
   $("#file-upload-input").change(function () {
-    console.log("hi");
     var file = $(this).get(0).files[0];
     if (file) {
       var reader = new FileReader();

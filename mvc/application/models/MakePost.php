@@ -1,9 +1,10 @@
 <?php
 
-class MakePost extends ConnectDB {
+class MakePost extends ConnectDB
+{
   public $postImage;
   public $postId;
-  public function addPost($postContent,$postImage)
+  public function addPost($postContent, $postImage)
   {
     $postContent = htmlspecialchars($postContent, ENT_QUOTES);
     $t = time();
@@ -14,12 +15,13 @@ class MakePost extends ConnectDB {
     $this->query($sql);
     return true;
   }
-  public function imgStoring($postImage){
-		if(!empty($postImage["name"])){
-			$target_file = "assets/img/" . $this->postId . $postImage["name"];
-			move_uploaded_file($postImage["tmp_name"],$target_file);
-			$this->postImage = $target_file;
-		}
-	}
+  public function imgStoring($postImage)
+  {
+    if (!empty($postImage["name"])) {
+      $target_file = "assets/img/" . $this->postId . $postImage["name"];
+      move_uploaded_file($postImage["tmp_name"], $target_file);
+      $this->postImage = $target_file;
+    }
+  }
 }
 ?>
