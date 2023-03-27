@@ -1,4 +1,21 @@
 $(document).ready(function(){
+  if(localStorage.getItem("theme") == "dark"){
+    $(document.body).addClass("dark-theme");
+    $("#theme").addClass("fa-rotate-180");
+  }
+  $("#theme").click(function(){
+    console.log("hi");
+    $(document.body).toggleClass("dark-theme");
+    if($(document.body).attr("class")=="dark-theme"){
+      localStorage.setItem("theme","dark");
+    }
+    else{
+      localStorage.setItem("theme","light");
+    }
+    $(this).toggleClass("fa-rotate-180");
+  });
+
+  $(".loader").fadeOut(2000);
   $(".react").click(function(){
     $(this).toggleClass("fa-regular fa-solid");
   });
@@ -31,19 +48,25 @@ $(document).ready(function(){
       reader.readAsDataURL(file);
     }
   });
-  $("#show-btn").click(function(){
-    console.log("hi");
-    // $(".loader").show();
+  var x = 2;
+  $(".show-btn").click(function(){
+    $(".post-section:nth-child(" + x + ")").css("display","block");
+    var stop = $(this).attr("id");
+    console.log(stop);
+    $("#"+stop).css("display","none");
+    x++;
+  });
+  $(".user").on("click",function(){
+    console.log($(this).attr("id"));
     $.ajax({
-      url: "landing/loadmore",
-      beforeSend : function(){
-        $(".loader").show();
-      },
+      url: "/landing/user",
+      method: "POST",
+      data: { userId : $(this).attr("id") },
+      datatype: "text",
       success: function (data) {
-        $(".loader").hide();
-        console.log("success");
-      }
+      },
     });
   });
+
   
 });

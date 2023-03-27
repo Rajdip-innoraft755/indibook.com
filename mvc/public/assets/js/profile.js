@@ -1,4 +1,19 @@
 $(document).ready(function () {
+  if(localStorage.getItem("theme") == "dark"){
+    $(document.body).addClass("dark-theme");
+    $("#theme").addClass("fa-rotate-180");
+  }
+  $("#theme").click(function(){
+    console.log("hi");
+    $(document.body).toggleClass("dark-theme");
+    if($(document.body).attr("class")=="dark-theme"){
+      localStorage.setItem("theme","dark");
+    }
+    else{
+      localStorage.setItem("theme","light");
+    }
+    $(this).toggleClass("fa-rotate-180");
+  });
   $("#slide-menu").click(function () {
     $(".profile-menu").slideToggle();
   });
@@ -10,7 +25,7 @@ $(document).ready(function () {
     }
   }
   function enableBtn() {
-    if ($.trim(".error".text()) == "") {
+    if ($.trim($(".error").text()) == "") {
       $("#update").prop("disabled", false);
     }
   }
@@ -64,6 +79,7 @@ $(document).ready(function () {
     }
   });
   $("#eye").click(function () {
+    console.log($(this).attr("id"));
     $(this).toggleClass("fa-eye fa-eye-slash");
     var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
     $("#pass").attr("type", type);

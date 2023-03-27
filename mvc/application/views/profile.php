@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>INDIBOOK.COM</title>
+  <link rel="shortcut icon" href="/assets/img/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="/assets/css/profile.css">
 </head>
 
@@ -28,6 +29,9 @@
               <li><a href="/home/logout">Logout</a></li>
             </ul>
           </div>
+          <div class="theme">
+						<i class="fa-solid fa-circle-half-stroke" id="theme"></i>
+					</div>
         </div>
       </div>
     </header>
@@ -37,13 +41,13 @@
         <div class="wrapper">
           <div class="left">
             <div class="profile-pic">
-              <img id ="preview" src="<?php echo Profile::$profilePic ?>" alt="">
+              <img id="preview" src="<?php echo Profile::$profilePic ?>" alt="">
               <i class="fa-solid fa-file-arrow-up" id="file-upload-btn"></i>
               <input type="file" id="file-upload-input" accept="image/*" name="imgUpload">
             </div>
             <div class="bio">
               <h3 class="tittle">Your Bio ...</h3>
-              <textarea name="bio" rows="5"
+              <textarea name="bio" rows="2"
                 placeholder="write somthing about you ..."><?php echo Profile::$bio ?></textarea>
             </div>
           </div>
@@ -85,19 +89,17 @@
               </div>
               <span class="error"></span>
             </div>
-
-            <div class="btn">
-              <input type="submit" value="Update Profile" id="update">
-            </div>
           </div>
         </div>
-
+        <div class="btn">
+          <input type="submit" value="Update Profile" id="update">
+        </div>
       </section>
     </form>
   </div>
   <script src="/assets/js/jquery.min.js"></script>
   <script src="/assets/js/profile.js"></script>
-  <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
+  <script src="/assets/js/fontawesome.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 mvc/vendor/
 *.jpg
+*.jpeg
 *.png
 *.ico
 *.gif
@@ -8,3 +9,4 @@ mvc/public/assets/css/bootstrap.css
 mvc/public/assets/js/bootstrap.bundle.js
 mvc/public/assets/js/bootstrap.js
 mvc/public/assets/js/jquery.min.js
+mvc/public/assets/js/fontawesome.js

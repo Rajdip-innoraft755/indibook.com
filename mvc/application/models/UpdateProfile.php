@@ -7,6 +7,7 @@ class UpdateProfile extends ConnectDB{
     $sql = "select password,profilePic from user_details where binary userId ='" . $_SESSION["userId"] ."'";
     $result = $this->query($sql); 
     if($result->num_rows == 1){
+      $bio = htmlspecialchars($bio, ENT_QUOTES);
       $this->profilePic = $result->fetch_assoc()["profilePic"];
       $this->imgStoring($imgUpload);
       $this->update($fName,$lName,$emailId,$bio,$this->profilePic);    

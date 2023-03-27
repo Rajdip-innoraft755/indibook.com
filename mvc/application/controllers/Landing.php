@@ -28,35 +28,45 @@ class Landing extends FrameWork
 	{
 		session_start();
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			$myModel = $this->model("makePost");
-			if ($myModel->addPost($_POST["postContent"],$_FILES["postImage"])) {
-				$this->redirect("landing");
+			if (!empty($_POST["postContent"]) || !empty($_FILES["postImage"])) {
+				$myModel = $this->model("makePost");
+				if ($myModel->addPost($_POST["postContent"], $_FILES["postImage"])) {
+					// $this->redirect("landing");
+				}
 			}
 		}
+		$this->redirect("landing");
 	}
 	public function UpdateProfile()
 	{
 		session_start();
 		$myModel = $this->model("updateProfile");
-		if($myModel->isValid($_POST["fName"],$_POST["lName"],$_POST["emailId"],$_POST["bio"],$_POST["password"],$_FILES["imgUpload"])){
-			
+		if ($myModel->isValid($_POST["fName"], $_POST["lName"], $_POST["emailId"], $_POST["bio"], $_POST["password"], $_FILES["imgUpload"])) {
+
 			$this->redirect("landing/profile");
-		}
-		else{
+		} else {
 			$this->view("profile");
 		}
 	}
-	public function validPassword(){
+	public function validPassword()
+	{
 		$myModel = $this->model("validPassword");
 		$myModel->isValidPassword($_POST["password"]);
 	}
 
-	public function loadmore(){
+	public function loadmore()
+	{
 		session_start();
-		print_r($_SESSION);
 		$myModel = $this->model("dashboard");
 		$myModel->fetchData(10);
-		$this->view("dashboard");
+	}
+
+	public function user($userId)
+	{
+		session_start();
+		$myModel = $this->model("OthersProfile");
+		$myModel->fetchData(base64_decode($userId));
+		$this->view("othersprofile");
 	}
 }
 ?>

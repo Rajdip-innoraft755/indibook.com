@@ -46,11 +46,11 @@ $(document).ready(function () {
     }
   });
   $("#pass").click(function(){
-    alert(
-      "Password should be 8-15 character and contains \n atleast 1 uppcase \n atleast 1" +
-      "lowercase \n atleast 1 special character(@ , # , $ , ? , ! , % , &) \n atleast 1 number"
-    );
+    $(".pass-instruction").css("display","block");
   });
+  $("#pass").blur(function(){
+    $(".pass-instruction").css("display","none");
+  })
   $("#pass").keyup(function () {
     if (!$isValidPassword.test($(this).val())) {
       $("#password>.error").css("color", "red");
@@ -71,8 +71,15 @@ $(document).ready(function () {
       datatype: "text",
       success: function (html) {
         $("#userId>.error").html(html);
+        if(html== ""){
+          enableBtn();
+        }
+        else{
+          disableBtn();
+        }
       },
     });
+    
   });
   $("#eye").click(function(){
     $(this).toggleClass("fa-eye fa-eye-slash");
@@ -80,4 +87,19 @@ $(document).ready(function () {
     $("#pass").attr("type", type);
   });
 
+  if(localStorage.getItem("theme") == "dark"){
+    $(document.body).addClass("dark-theme");
+    $("#theme-btn").addClass("fa-rotate-180");
+  }
+  $("#theme").click(function(){
+    console.log("hi");
+    $(document.body).toggleClass("dark-theme");
+    if($(document.body).attr("class")=="dark-theme"){
+      localStorage.setItem("theme","dark");
+    }
+    else{
+      localStorage.setItem("theme","light");
+    }
+    $("#theme-btn").toggleClass("fa-rotate-180");
+  });
 });

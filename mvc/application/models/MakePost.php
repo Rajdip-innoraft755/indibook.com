@@ -6,14 +6,16 @@ class MakePost extends ConnectDB
   public $postId;
   public function addPost($postContent, $postImage)
   {
-    $postContent = htmlspecialchars($postContent, ENT_QUOTES);
-    $t = time();
-    $this->postId = date("Y-m-d H:i:s", $t) . " " . $_SESSION["userId"];
-    $this->imgStoring($postImage);
-    $postAuthorId = $_SESSION["userId"];
-    $sql = "insert into post (postId,postContent,postImage,postAuthorId) values('$this->postId','$postContent','$this->postImage','$postAuthorId');";
-    $this->query($sql);
-    return true;
+    if(!empty($postContent) || !empty($postImage["name"])){
+      $postContent = htmlspecialchars($postContent, ENT_QUOTES);
+      $t = time();
+      $this->postId = date("Y-m-d H:i:s", $t) . " " . $_SESSION["userId"];
+      $this->imgStoring($postImage);
+      $postAuthorId = $_SESSION["userId"];
+      $sql = "insert into post (postId,postContent,postImage,postAuthorId) values('$this->postId','$postContent','$this->postImage','$postAuthorId');";
+      $this->query($sql);
+      return true;
+    }
   }
   public function imgStoring($postImage)
   {

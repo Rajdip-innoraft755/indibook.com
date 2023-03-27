@@ -41,6 +41,7 @@ class ForgotPassword extends ConnectDB
     try{
       $this->query($sql);
       echo "Password Updated.";
+      ErrorMsg::$logIn = "Password Updated.";
     }
     catch(Exception $e){
       echo "Password is not updated successfully.";
