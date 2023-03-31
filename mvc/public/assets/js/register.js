@@ -46,11 +46,13 @@ $(document).ready(function () {
     }
   });
   $("#pass").click(function(){
+    console.log('hi');
     $(".pass-instruction").css("display","block");
   });
   $("#pass").blur(function(){
     $(".pass-instruction").css("display","none");
-  })
+  });
+
   $("#pass").keyup(function () {
     if (!$isValidPassword.test($(this).val())) {
       $("#password>.error").css("color", "red");
@@ -62,7 +64,7 @@ $(document).ready(function () {
       enableBtn();
     }
   });
-  $("#userId>input").blur(function () {
+  $("#userId>input").keyup($.debounce(300,function() {
     var userid = $(this).val();
     $.ajax({
       url: "/home/availableUser",
@@ -78,9 +80,8 @@ $(document).ready(function () {
           disableBtn();
         }
       },
-    });
-    
-  });
+    });  
+  }));
   $("#eye").click(function(){
     $(this).toggleClass("fa-eye fa-eye-slash");
     var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";

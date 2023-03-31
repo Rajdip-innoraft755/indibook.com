@@ -19,6 +19,7 @@ class Login extends ConnectDB {
 		else{
 			while(($row = $result->fetch_assoc())){
 				session_start();
+				setcookie("activeUser",$row["userId"],time()+86400,"/");
 				$_SESSION["active"]=TRUE;
 				$_SESSION["userId"]=$row["userId"];
 			}

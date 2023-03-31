@@ -242,6 +242,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: right;
+  float: right;
   padding: 10px;
   border: none;
   column-gap: 20px;

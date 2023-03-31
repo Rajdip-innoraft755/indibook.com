@@ -30,9 +30,7 @@ class Landing extends FrameWork
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			if (!empty($_POST["postContent"]) || !empty($_FILES["postImage"])) {
 				$myModel = $this->model("makePost");
-				if ($myModel->addPost($_POST["postContent"], $_FILES["postImage"])) {
-					// $this->redirect("landing");
-				}
+				$myModel->addPost($_POST["postContent"], $_FILES["postImage"]);
 			}
 		}
 		$this->redirect("landing");
@@ -40,12 +38,16 @@ class Landing extends FrameWork
 	public function UpdateProfile()
 	{
 		session_start();
-		$myModel = $this->model("updateProfile");
-		if ($myModel->isValid($_POST["fName"], $_POST["lName"], $_POST["emailId"], $_POST["bio"], $_POST["password"], $_FILES["imgUpload"])) {
+		if ($_SESSION["active"]) {
+			$myModel = $this->model("updateProfile");
+			if ($myModel->isValid($_POST["fName"], $_POST["lName"], $_POST["emailId"], $_POST["bio"], $_POST["password"], $_FILES["imgUpload"])) {
 
-			$this->redirect("landing/profile");
+				$this->redirect("landing/profile");
+			} else {
+				$this->view("profile");
+			}
 		} else {
-			$this->view("profile");
+			$this->redirect("");
 		}
 	}
 	public function validPassword()
@@ -53,20 +55,18 @@ class Landing extends FrameWork
 		$myModel = $this->model("validPassword");
 		$myModel->isValidPassword($_POST["password"]);
 	}
-
-	public function loadmore()
-	{
-		session_start();
-		$myModel = $this->model("dashboard");
-		$myModel->fetchData(10);
-	}
-
 	public function user($userId)
 	{
+
 		session_start();
-		$myModel = $this->model("OthersProfile");
-		$myModel->fetchData(base64_decode($userId));
-		$this->view("othersprofile");
+		if ($_SESSION["active"]) {
+			$myModel = $this->model("OthersProfile");
+			$myModel->fetchData(base64_decode($userId));
+			$this->view("othersprofile");
+		} else {
+			$this->redirect("");
+		}
+
 	}
 }
 ?>

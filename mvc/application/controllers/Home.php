@@ -1,10 +1,12 @@
 <?php
-class Home extends FrameWork {
+class Home extends FrameWork
+{
 	public function index()
 	{
 		$this->view("login");
 	}
-	public function registerview(){
+	public function registerview()
+	{
 		$this->view("register");
 	}
 	public function login()
@@ -13,10 +15,9 @@ class Home extends FrameWork {
 			$myModel = $this->model("login");
 			if ($myModel->setter($_POST["userId"], $_POST["password"])) {
 				$this->redirect("landing");
-			}
-			else{
+			} else {
 				$this->view("login");
-			} 
+			}
 		}
 	}
 	public function register()
@@ -30,6 +31,13 @@ class Home extends FrameWork {
 			}
 		}
 	}
+	public function signwithgoogle()
+	{
+		$myModel = $this->model("GoogleUserAuth");
+		if($myModel->RegisterUser($_GET["code"])) {
+			$this->redirect("landing");
+		}
+	}
 	public function availableUser()
 	{
 		$myModel = $this->model("availableUser");
@@ -40,14 +48,20 @@ class Home extends FrameWork {
 		$myModel = $this->model("validUser");
 		$myModel->isValidUser();
 	}
-	public function logout(){
+	public function logout()
+	{
 		session_start();
+		session_unset();
 		session_destroy();
+		session_write_close();
+		setcookie(session_name(), '', 0, '/');
+		session_regenerate_id(true);
 		$this->redirect("");
 	}
-	public function forgotpassword($params){
+	public function forgotpassword($params)
+	{
 		$myModel = $this->model("forgotPassword");
-		switch($params){
+		switch ($params) {
 			case "index":
 				$this->view("forgotpassword");
 				break;
@@ -60,7 +74,6 @@ class Home extends FrameWork {
 			case "reset":
 				$myModel->reset($_POST["password"]);
 		}
-		
 	}
 }
 ?>

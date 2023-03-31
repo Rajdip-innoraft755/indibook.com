@@ -26,7 +26,7 @@ class Dashboard extends ConnectDB
     $result = $this->query($sql);
     while ($row = $result->fetch_assoc()) {
       Dashboard::$userName = ucwords($row["fName"] . " " . $row["lName"]);
-      Dashboard::$userProfilePic = "/" . $row["profilePic"];
+      Dashboard::$userProfilePic = $row["profilePic"];
       $_SESSION["userName"] = Dashboard::$userName;
     }
   }
@@ -43,7 +43,7 @@ class Dashboard extends ConnectDB
         Dashboard::$postAuthor[$i] = $row["fName"] . " " . $row["lName"];
         Dashboard::$postImage[$i] = $row["postImage"];
         Dashboard::$postContent[$i] = $row["postContent"];
-        Dashboard::$postAuthorProfilePic[$i++] = "/" . $row["profilePic"];
+        Dashboard::$postAuthorProfilePic[$i++] = $row["profilePic"];
       }
     } catch (exception $e) {
       echo "No more Posts.";
@@ -59,7 +59,7 @@ class Dashboard extends ConnectDB
     while ($row = $result->fetch_assoc()) {
       Dashboard::$activeUserId[$i] = $row["userId"];
       Dashboard::$activeUserName[$i] = ucwords($row["fName"] . " " . $row["lName"]);
-      Dashboard::$activeUserProfilePic[$i++] = "/" . $row["profilePic"];
+      Dashboard::$activeUserProfilePic[$i++] = $row["profilePic"];
     }
   }
 }

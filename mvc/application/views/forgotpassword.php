@@ -7,13 +7,14 @@
   <link rel="shortcut icon" href="/assets/img/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="/assets/css/homeIndex.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fa4299">
 </head>
 
 <body>
 <div class="sidebar">
 		<ul>
 			<li class="icon">
-				<a href="<?php echo BASEURL; ?>"><i class="fa-solid fa-house"></i>LOGIN</a>		
+				<a href="/"><i class="fa-solid fa-house"></i>LOGIN</a>		
 			</li>
 			<li class="icon">
 				<a href="/home/registerview"><i class="fa-solid fa-user-plus"></i>REGISTER</a>		

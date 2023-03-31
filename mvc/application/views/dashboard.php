@@ -4,9 +4,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#fa4299">
 	<title>INDIBOOK.COM</title>
 	<link rel="shortcut icon" href="/assets/img/logo.png" type="image/x-icon">
 	<link rel="stylesheet" href="/assets/css/dashboard.css">
+	<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+
 </head>
 
 <body>
@@ -35,7 +38,7 @@
 					</div>
 					<div class="theme">
 						<i class="fa-solid fa-circle-half-stroke" id="theme"></i>
-					</div>				
+					</div>
 				</div>
 			</div>
 		</header>
@@ -104,7 +107,7 @@
 												<img src="<?php echo Dashboard::$postImage[$num]; ?>" alt="">
 											</div>
 											<div class="text-box">
-												<?php echo Dashboard::$postContent[$num++];?>
+												<?php echo Dashboard::$postContent[$num++]; ?>
 											</div>
 										</div>
 										<div class="post-reaction">
@@ -115,21 +118,22 @@
 												<div class="comment" id="comment">
 													<button><i class="fa-regular fa-comment comment-btn"></i></button>
 												</div>
+												<div class="elfsight-app-4ba0be1a-9dfa-40c8-8854-e06f4d56368f"></div>
 											</div>
 										</div>
 									</div>
 									<?php
 								}
 								?>
-							<?php
-							if ($num < Dashboard::$postNo) {
-								?>
-								<div class="show-more">
-									<input type="button" class="show-btn" id="<?php echo $j ?>" value="See more ...">
-								</div>
 								<?php
-							}
-							?>
+								if ($num < Dashboard::$postNo) {
+									?>
+									<div class="show-more">
+										<input type="button" class="show-btn" id="<?php echo $j ?>" value="See more ...">
+									</div>
+									<?php
+								}
+								?>
 							</div>
 							<?php
 						} ?>

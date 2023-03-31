@@ -20,7 +20,7 @@ class UpdateProfile extends ConnectDB{
 		if(!empty($imgUpload["name"])){
 			$target_file = "assets/img/" . $_SESSION["userId"] . "-profile-pic-" .$imgUpload["name"];
 			move_uploaded_file($imgUpload["tmp_name"],$target_file);
-			$this->profilePic =	$target_file;
+			$this->profilePic =	"/" . $target_file;
       return true;
 		}
     return false;

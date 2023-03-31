@@ -22,4 +22,19 @@ $(document).ready(function () {
     var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
     $("#pass").attr("type", type);
   });
+  if($.cookie("cookie-policy") != "accept" ){
+    $(".cookie-policy").fadeIn(500);
+  }
+  $(".cookie-button").click(function(){
+    var expDate=new Date();
+    expDate = expDate.setTime(expDate.getTime() + (15 * 60 * 1000));
+    if($(this).attr("id") == "accept-cokkie") {
+      $.cookie("cookie-policy","accept",{path: '/', expires: expDate });
+    }
+    else {
+      $.cookie("cookie-policy","decline",{path: '/', expires: expDate });
+    }
+    $(".cookie-policy").fadeOut();
+  });
+
 });

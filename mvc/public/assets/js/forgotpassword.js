@@ -71,7 +71,6 @@ $(document).ready(function () {
     );
   });
   $("#reset-password").click(function () {
-    // console.log($("#otp-input").val());
     if ($("#pass").val().length != 0) {
       $.ajax({
         url: "/home/forgotpassword/reset",

@@ -16,7 +16,7 @@ class OthersProfile extends ConnectDB{
     while($row = $result->fetch_assoc()){
       OthersProfile::$userId = $userId ;
       OthersProfile::$name = ucwords($row["fName"]) .  " " . ucwords($row["lName"]);
-      OthersProfile::$profilePic = "/".$row["profilePic"];
+      OthersProfile::$profilePic = $row["profilePic"];
       OthersProfile::$emailId = $row["emailId"];
       OthersProfile::$bio = $row["bio"];
     }
@@ -30,7 +30,7 @@ class OthersProfile extends ConnectDB{
       OthersProfile::$postNo = $result->num_rows;
       $i = 0;
       while ($row = $result->fetch_assoc()) {
-        OthersProfile::$postImage[$i] = "/" . $row["postImage"];
+        OthersProfile::$postImage[$i] = $row["postImage"];
         OthersProfile::$postContent[$i++] = $row["postContent"];
       }
     } catch (exception $e) {

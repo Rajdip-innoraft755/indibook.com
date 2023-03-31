@@ -44,7 +44,7 @@ body {
   gap: 10px;
   align-items: center;
 }
-.sidebar ul li a:hover{
+.sidebar ul li a:hover {
   color: #a445b2;
 }
 .sidebar .icon {
@@ -105,9 +105,9 @@ body {
   width: 100%;
   margin-top: 20px;
 }
-.form-inner form .field input{
+.form-inner form .field input {
   color: var(--secondary-color);
-  background:transparent;
+  background: transparent;
   height: 100%;
   width: 100%;
   outline: none;
@@ -221,10 +221,10 @@ form .btn button a {
   border-bottom-width: 2px;
   padding: 10px;
 }
-.pass-instruction{
+.pass-instruction {
   display: none;
 }
-.pass-instruction p{
+.pass-instruction p {
   color: var(--secondary-color);
 }
 #pass {
@@ -288,7 +288,9 @@ form .btn button a {
 .forgot-btn:hover {
   background-color: #fa4299;
 }
-#send-otp,#verify-otp,#reset-password{
+#send-otp,
+#verify-otp,
+#reset-password {
   display: inline-block;
   width: 30%;
   background-color: #a445b2;
@@ -314,4 +316,36 @@ form .btn button a {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+.cookie-policy{
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: var(--secondary-color);
+  padding: 50px;
+  border-radius:20px ;
+  color: var(--primary-color);
+}
+.cookie-policy-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cookie-policy-wrap p {
+  width: 50%;
+}
+.cookie-policy-wrap button {
+  width: 24%;
+  font-size: 15px;
+  padding: 5px;
+  background: #fa4299;
+}
+#google-login{
+  display: flex;
+  align-items: center;
+}
+#google-login i{
+  padding-left: 10px;
 }

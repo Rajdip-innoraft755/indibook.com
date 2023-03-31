@@ -17,7 +17,7 @@ class FrameWork {
 
 	public function redirect($path)
 	{
-		header("location:" . BASEURL . "/" . $path);
+		header("location:" . "/" . $path);
 	}
 }
 ?>

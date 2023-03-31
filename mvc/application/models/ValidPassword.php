@@ -1,6 +1,6 @@
 <?php
 
-class validPassword extends ConnectDB{
+class validPassword extends ConnectDB {
   public function isValidPassword($password){
     session_start();
     $sql = "select * from user_details where binary userId='" . $_SESSION["userId"] . "' and password=MD5('$password')";

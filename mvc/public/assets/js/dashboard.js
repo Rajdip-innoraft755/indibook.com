@@ -14,7 +14,6 @@ $(document).ready(function(){
     }
     $(this).toggleClass("fa-rotate-180");
   });
-
   $(".loader").fadeOut(2000);
   $(".react").click(function(){
     $(this).toggleClass("fa-regular fa-solid");
@@ -55,18 +54,5 @@ $(document).ready(function(){
     console.log(stop);
     $("#"+stop).css("display","none");
     x++;
-  });
-  $(".user").on("click",function(){
-    console.log($(this).attr("id"));
-    $.ajax({
-      url: "/landing/user",
-      method: "POST",
-      data: { userId : $(this).attr("id") },
-      datatype: "text",
-      success: function (data) {
-      },
-    });
-  });
-
-  
+  });  
 });
