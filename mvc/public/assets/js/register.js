@@ -1,14 +1,18 @@
 $(document).ready(function () {
   var $isAlpha = /^[a-zA-Z ]*$/;
-  var $isValidPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/;
+  var $isValidPassword =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/;
   var $isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   function disableBtn() {
-    if($(".error").text() != ""){
+    if ($(".error").text() != "") {
       $("#signup").attr("disabled", true);
     }
   }
   function enableBtn() {
-    if($.trim($(".error").text()) == "" || $.trim($(".error").text()) == "Strong Password"){
+    if (
+      $.trim($(".error").text()) == "" ||
+      $.trim($(".error").text()) == "Strong Password"
+    ) {
       $("#signup").attr("disabled", false);
     }
   }
@@ -16,8 +20,7 @@ $(document).ready(function () {
     if (!$isAlpha.test($(this).val())) {
       $("#fName>.error").html("* only alphapets are allowed.");
       disableBtn();
-    } 
-    else {
+    } else {
       $("#fName>.error").html("");
       enableBtn();
     }
@@ -32,8 +35,8 @@ $(document).ready(function () {
       enableBtn();
     }
   });
-  
-  $("#file-upload-btn").click(function(){
+
+  $("#file-upload-btn").click(function () {
     $("#file-upload-input").click();
   });
   $("#emailId>input").blur(function () {
@@ -41,16 +44,30 @@ $(document).ready(function () {
       $("#emailId>.error").html("* not a valid Email Id.");
       disableBtn();
     } else {
+      $.ajax({
+        url: "/home/availableUser/emailid",
+        method: "POST",
+        data: { emailId: $(this).val() },
+        datatype: "JSON",
+        success: function (data) {
+          $("#emailId>.error").html(jQuery.parseJSON(data)["isAvialableEmailId"]);
+          if (jQuery.parseJSON(data)["isAvialableEmailId"] == "") {
+            enableBtn();
+          } else {
+            disableBtn();
+          }
+        },
+      });
       $("#emailId>.error").html("");
       enableBtn();
     }
   });
-  $("#pass").click(function(){
-    console.log('hi');
-    $(".pass-instruction").css("display","block");
+  $("#pass").click(function () {
+    console.log("hi");
+    $(".pass-instruction").css("display", "block");
   });
-  $("#pass").blur(function(){
-    $(".pass-instruction").css("display","none");
+  $("#pass").blur(function () {
+    $(".pass-instruction").css("display", "none");
   });
 
   $("#pass").keyup(function () {
@@ -64,42 +81,43 @@ $(document).ready(function () {
       enableBtn();
     }
   });
-  $("#userId>input").keyup($.debounce(300,function() {
-    var userid = $(this).val();
-    $.ajax({
-      url: "/home/availableUser",
-      method: "POST",
-      data: { userId: userid },
-      datatype: "text",
-      success: function (html) {
-        $("#userId>.error").html(html);
-        if(html== ""){
-          enableBtn();
-        }
-        else{
-          disableBtn();
-        }
-      },
-    });  
-  }));
-  $("#eye").click(function(){
+  $("#userId>input").keyup(
+    $.debounce(300, function () {
+      var userid = $(this).val();
+      $.ajax({
+        url: "/home/availableUser/userid",
+        method: "POST",
+        data: { userId: userid },
+        datatype: "JSON",
+        success: function (data) {
+          $("#userId>.error").html(jQuery.parseJSON(data)["isAvialableUserId"]);
+          if (jQuery.parseJSON(data)["isAvialableUserId"] == "") {
+            enableBtn();
+          } else {
+            disableBtn();
+          }
+        },
+      });
+    })
+  );
+
+  $("#eye").click(function () {
     $(this).toggleClass("fa-eye fa-eye-slash");
     var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
     $("#pass").attr("type", type);
   });
 
-  if(localStorage.getItem("theme") == "dark"){
+  if (localStorage.getItem("theme") == "dark") {
     $(document.body).addClass("dark-theme");
     $("#theme-btn").addClass("fa-rotate-180");
   }
-  $("#theme").click(function(){
+  $("#theme").click(function () {
     console.log("hi");
     $(document.body).toggleClass("dark-theme");
-    if($(document.body).attr("class")=="dark-theme"){
-      localStorage.setItem("theme","dark");
-    }
-    else{
-      localStorage.setItem("theme","light");
+    if ($(document.body).attr("class") == "dark-theme") {
+      localStorage.setItem("theme", "dark");
+    } else {
+      localStorage.setItem("theme", "light");
     }
     $("#theme-btn").toggleClass("fa-rotate-180");
   });

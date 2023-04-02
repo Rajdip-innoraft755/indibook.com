@@ -38,10 +38,15 @@ class Home extends FrameWork
 			$this->redirect("landing");
 		}
 	}
-	public function availableUser()
+	public function availableUser($param)
 	{
 		$myModel = $this->model("availableUser");
-		$myModel->isAvailable();
+		if($param == "emailid"){
+			$myModel->isAvailableEmailId();
+		}
+		else{
+			$myModel->isAvailableUserId();
+		}
 	}
 	public function validUser()
 	{
@@ -55,7 +60,7 @@ class Home extends FrameWork
 		session_destroy();
 		session_write_close();
 		setcookie(session_name(), '', 0, '/');
-		session_regenerate_id(true);
+		session_regenerate_id(TRUE);
 		$this->redirect("");
 	}
 	public function forgotpassword($params)
