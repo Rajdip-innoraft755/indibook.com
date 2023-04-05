@@ -39,7 +39,6 @@
 		<div class="form-container">
 			<div class="form-inner">
 				<form action="/home/register" class="signup" method="POST" enctype="multipart/form-data">
-
 					<div class="field" id="fName">
 						<input type="text" placeholder="First Name" name="fName" required>
 						<span class="error">
@@ -92,6 +91,11 @@
 							atleast 1 lowercase <br>
 							atleast 1 special character(@ , # , $ , ? , ! , % , &)<br>
 							atleast 1 number</p>
+					</div>
+
+					<div class="field" id="cookie">
+						<input type="checkbox" name="cookie" value="accept">
+						<label>Click Here to Accept Our Cookie Policy</label>
 					</div>
 
 					<div class="field btn">

@@ -7,14 +7,17 @@ class Register extends ConnectDB {
 	public $password = "";
 	public $profilePic = "assets/img/default-dp.jpg";
 	public $uniqueId = "";
-
+	public $cookie = "decline";
 	
-	public function setter($fName,$lName,$userID,$emailId,$password,$imgUpload){
+	public function setter($fName,$lName,$userID,$emailId,$password,$imgUpload,$cookie){
 		$this->fName = $fName;
 		$this->lName = $lName;
 		$this->userID = $userID;
 		$this->emailId = $emailId;
 		$this->password = $password;
+		if(!empty($cookie)){
+			$this->cookie = $cookie;
+		}
 		if($this->validate()){
 			$this->imgStoring($imgUpload);
 			$this->generateUniqueId();
@@ -71,7 +74,7 @@ class Register extends ConnectDB {
 	
 	public function InsertData()
 	{
-		$sql = "insert into user_details values('$this->userID','$this->uniqueId','$this->fName','$this->lName','$this->emailId',MD5('$this->password'),'$this->profilePic','');";
+		$sql = "insert into user_details values('$this->userID','$this->uniqueId','$this->fName','$this->lName','$this->emailId',MD5('$this->password'),'$this->profilePic','','$this->cookie');";
 		$this->query($sql);
 	}
 }

@@ -107,7 +107,7 @@
 												<img src="<?php echo Dashboard::$postImage[$num]; ?>" alt="">
 											</div>
 											<div class="text-box">
-												<?php echo Dashboard::$postContent[$num++]; ?>
+												<?php echo Dashboard::$postContent[$num]; ?>
 											</div>
 										</div>
 										<div class="post-reaction">
@@ -118,7 +118,13 @@
 												<div class="comment" id="comment">
 													<button><i class="fa-regular fa-comment comment-btn"></i></button>
 												</div>
-												<div class="elfsight-app-4ba0be1a-9dfa-40c8-8854-e06f4d56368f"></div>
+												<!-- <div class="elfsight-app-4ba0be1a-9dfa-40c8-8854-e06f4d56368f"></div> -->
+												<div class="share">
+														<a target="_blank"
+															href="https://www.twitter.com/share?url=&text=<?php echo Dashboard::$postContent[$num++] ?>">
+															<i class="fa-brands fa-twitter"></i>
+														</a>	
+												</div>
 											</div>
 										</div>
 									</div>

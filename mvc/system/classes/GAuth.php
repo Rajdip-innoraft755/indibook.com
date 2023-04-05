@@ -15,7 +15,6 @@ class GAuth
   }
   public static function authenticate($code)
   {
-
     $google_client = new Google_Client();
     $google_client->setClientId(GCLIENTID);
     $google_client->setClientSecret(GCLIENTSECRET);

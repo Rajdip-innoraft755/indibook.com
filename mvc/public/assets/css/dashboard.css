@@ -258,7 +258,8 @@ body {
   background: transparent;
 }
 .react button i,
-.comment button i {
+.comment button i,
+.share i {
   font-size: 30px;
   color: #fa4299;
   transition: all 0.3s ease;

@@ -317,18 +317,18 @@ form .btn button a {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.cookie-policy{
+.cookie-policy {
   display: none;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background-color: var(--secondary-color);
   padding: 50px;
-  border-radius:20px ;
+  border-radius: 20px;
   color: var(--primary-color);
 }
-.cookie-policy-wrap{
+.cookie-policy-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -342,10 +342,19 @@ form .btn button a {
   padding: 5px;
   background: #fa4299;
 }
-#google-login{
+#google-login {
   display: flex;
   align-items: center;
 }
-#google-login i{
+#google-login i {
   padding-left: 10px;
+}
+#cookie {
+  display: flex;
+  align-items: center;
+  color: var(--secondary-color);
+}
+#cookie input {
+  width: 10%;
+  height: 20px;
 }

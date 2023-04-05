@@ -8,7 +8,6 @@ $(document).ready(function () {
         url: "/home/validUser",
         method: "POST",
         data: { userId: userid },
-
         datatype: "text",
         success: function (result) {
           $("#userId>.error").html(result);
@@ -21,7 +20,6 @@ $(document).ready(function () {
   });
 
   $("#send-otp").click(function () {
-    // $("#userId>.error").css("display", "block");
     $.ajax({
       url: "/home/forgotpassword/sendmail",
       method: "POST",
@@ -42,7 +40,6 @@ $(document).ready(function () {
   });
 
   $("#verify-otp").click(function () {
-    // console.log($("#otp-input").val());
     if ($("#otp-input").val().length != 0) {
       $.ajax({
         url: "/home/forgotpassword/verifyotp",
