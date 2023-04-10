@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+	<link rel="stylesheet" href="{{ asset("assets/css/homeindex.css") }}">
+{% endblock %}
+{% block body %}
+	<div class="sidebar">
+		<ul>
+			<li class="icon">
+				<a href="/">
+					<i class="fa-solid fa-house"></i>LOGIN</a>
+			</li>
+			<li class="icon">
+				<a href="/registerview">
+					<i class="fa-solid fa-user-plus"></i>REGISTER</a>
+			</li>
+			<li class="icon" id="theme">
+				<a>
+					<i class="fa-solid fa-circle-half-stroke" id="theme-btn"></i>THEME</a>
+			</li>
+			<li class="icon" id="theme">
+				<a href="mailto:royrajdip10@gmail.com">
+					<i class="fa-solid fa-phone" id="theme-btn"></i>Contact Us</a>
+			</li>
+		</ul>
+	</div>
+	<div class="wrapper">
+		<div class="logo">
+			<a href="/landing"><img src="/assets/img/logo.png" alt="">
+				<p>INDIBOOK</p>
+			</a>
+		</div>
+
+		<div class="title-text">
+			<div class="title login">USER LOGIN</div>
+		</div>
+		<div class="form-container">
+			<div class="form-inner">
+				<form action="login" method="POST" class="login">
+					<div>
+						{% if loginErr is defined %}
+							<span class="error">
+								{{ loginErr }}
+							</span>
+						{% endif %}
+					</div>
+					<div class="field" id="userId">
+						<input type="text" placeholder="User ID" name="userId" required>
+						<span class="error"></span>
+					</div>
+					<div class="field" id="password">
+						<div class="password-input">
+							<input type="password" placeholder="Password" id="pass" name="password" required>
+								<i id="eye" class="fa-regular fa-eye"></i>
+							</input>
+						</div>
+						<span class="error"></span>
+					</div>
+					<div class="pass-link">
+						<a href="/home/forgotpassword/index">Forgot password?</a>
+					</div>
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<input id="login-btn" type="submit" value="Login">
+					</div>
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<button id="google-login">
+							<i class="fa-brands fa-google"></i>
+							<a href="<?php echo GAuth::createUrl();?>">Signup with google</a>
+						</button>
+					</div>
+					<div class="signup-link">Not a member?
+						<a href="/registerview">Signup now</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="cookie-policy">
+		<div class="cookie-policy-wrap">
+			<p>Allow to store cookie</p>
+			<button class="cookie-button" id="accept-cokkie">Accept</button>
+			<button class="cookie-button" id="decline-cokkie">Decline</button>
+		</div>
+	</div>
+	{% block js %}
+		<script src="{{ asset("assets/js/login.js") }}"></script>
+	{% endblock %}
+{% endblock %}
