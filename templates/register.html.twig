@@ -37,25 +37,31 @@
 				<form action="/register" class="signup" method="POST" enctype="multipart/form-data">
 					<div class="field" id="fName">
 						<input type="text" placeholder="First Name" name="fName" required>
-						<span class="error">
-							<?php ErrorMsg::getter("fName"); ?>
-						</span>
+						{% if error["fName"] is defined %}
+							<span class="error">
+								{{ error["fName"] }}
+							</span>
+						{% endif %}
 					</div>
 
 
 					<div class="field" id="lName">
 						<input type="text" placeholder="Last Name" name="lName" required>
-						<span class="error">
-							<?php ErrorMsg::getter("lName"); ?>
-						</span>
+						{% if error["lName"] is defined %}
+							<span class="error">
+								{{ error["lName"] }}
+							</span>
+						{% endif %}
 					</div>
 
 
 					<div class="field" id="userId">
 						<input type="text" placeholder="User ID" name="userId" required>
-						<span class="error">
-							<?php ErrorMsg::getter("userId"); ?>
-						</span>
+						{% if error["userId"] is defined %}
+							<span class="error">
+								{{ error["userId"] }}
+							</span>
+						{% endif %}
 					</div>
 
 					<span id="file-upload-label">Choose your profile picture</span>
@@ -66,9 +72,11 @@
 
 					<div class="field" id="emailId">
 						<input type="text" placeholder="Email Address" name="emailId" required>
-						<span class="error">
-							<?php echo ErrorMsg::getter("emailId"); ?>
-						</span>
+						{% if error["emailId"] is defined %}
+							<span class="error">
+								{{ error["emailId"] }}
+							</span>
+						{% endif %}
 					</div>
 
 
@@ -78,9 +86,11 @@
 								<i id="eye" class="fa-regular fa-eye"></i>
 							</input>
 						</div>
-						<span class="error">
-							<?php ErrorMsg::getter("password"); ?>
-						</span>
+						{% if error["password"] is defined %}
+							<span class="error">
+								{{ error["password"] }}
+							</span>
+						{% endif %}
 					</div>
 					<div class="field pass-instruction">
 						<p>Password should be 8-15 character and contains
@@ -116,5 +126,6 @@
 	</div>
 	{% block js %}
 		<script src="{{ asset("assets/js/register.js") }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js" integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	{% endblock %}
 {% endblock %}

@@ -6,4 +6,9 @@
 /public/bundles/
 /var/
 /vendor/
+*.jpg
+*.jpeg
+*.png
+*.gif
+/.env
 ###< symfony/framework-bundle ###
