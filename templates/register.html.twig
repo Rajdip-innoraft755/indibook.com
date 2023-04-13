@@ -1,28 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block css %}
+	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset("assets/css/homeindex.css") }}">
 {% endblock %}
+{% block js %}
+	{{ parent() }}
+	<script src="{{ asset("assets/js/register.js") }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js" integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block sidebar %}
+	{{ parent() }}
+{% endblock %}
 {% block body %}
-	<div class="sidebar">
-		<ul>
-			<li class="icon">
-				<a href="/">
-					<i class="fa-solid fa-house"></i>LOGIN</a>
-			</li>
-			<li class="icon">
-				<a href="/registerview">
-					<i class="fa-solid fa-user-plus"></i>REGISTER</a>
-			</li>
-			<li class="icon" id="theme">
-				<a>
-					<i class="fa-solid fa-circle-half-stroke" id="theme-btn"></i>THEME</a>
-			</li>
-			<li class="icon" id="theme">
-				<a href="mailto:royrajdip10@gmail.com">
-					<i class="fa-solid fa-phone" id="theme-btn"></i>Contact Us</a>
-			</li>
-		</ul>
-	</div>
 	<div class="wrapper">
 		<div class="logo">
 			<a href="/landing"><img src="/assets/img/logo.png" alt="">
@@ -37,31 +27,33 @@
 				<form action="/register" class="signup" method="POST" enctype="multipart/form-data">
 					<div class="field" id="fName">
 						<input type="text" placeholder="First Name" name="fName" required>
-						{% if error["fName"] is defined %}
-							<span class="error">
+						<span class="error">
+							{% if error["fName"] is defined %}
 								{{ error["fName"] }}
-							</span>
-						{% endif %}
+							{% endif %}
+						</span>
+
 					</div>
 
 
 					<div class="field" id="lName">
 						<input type="text" placeholder="Last Name" name="lName" required>
-						{% if error["lName"] is defined %}
-							<span class="error">
+						<span class="error">
+							{% if error["lName"] is defined %}
 								{{ error["lName"] }}
-							</span>
-						{% endif %}
+							{% endif %}
+						</span>
+
 					</div>
 
 
 					<div class="field" id="userId">
 						<input type="text" placeholder="User ID" name="userId" required>
-						{% if error["userId"] is defined %}
-							<span class="error">
+						<span class="error">
+							{% if error["userId"] is defined %}
 								{{ error["userId"] }}
-							</span>
-						{% endif %}
+							{% endif %}
+						</span>
 					</div>
 
 					<span id="file-upload-label">Choose your profile picture</span>
@@ -72,11 +64,12 @@
 
 					<div class="field" id="emailId">
 						<input type="text" placeholder="Email Address" name="emailId" required>
-						{% if error["emailId"] is defined %}
-							<span class="error">
+						<span class="error">
+							{% if error["emailId"] is defined %}
 								{{ error["emailId"] }}
-							</span>
-						{% endif %}
+							{% endif %}
+						</span>
+
 					</div>
 
 
@@ -86,11 +79,12 @@
 								<i id="eye" class="fa-regular fa-eye"></i>
 							</input>
 						</div>
-						{% if error["password"] is defined %}
-							<span class="error">
+						<span class="error">
+							{% if error["password"] is defined %}
 								{{ error["password"] }}
-							</span>
-						{% endif %}
+							{% endif %}
+						</span>
+
 					</div>
 					<div class="field pass-instruction">
 						<p>Password should be 8-15 character and contains
@@ -124,8 +118,5 @@
 			</div>
 		</div>
 	</div>
-	{% block js %}
-		<script src="{{ asset("assets/js/register.js") }}"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js" integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	{% endblock %}
+
 {% endblock %}

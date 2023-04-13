@@ -4,31 +4,57 @@ namespace App\Controller;
 
 use Exception;
 use App\Entity\User;
+use App\Services\Registration;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * HomeController
  *
- * This controller is to manage the register and login process.
+ * HomeController, this controller is to manage the register user through
+ * Registration class  and handles the login process also , On sucessful login
+ * this controller redirects to DashboardController.
  *
  * @author rajdip <rajdip.roy@innoraft.com>
  */
 class HomeController extends AbstractController
 {
   /**
-   * This is a object of EntityManagerInterface class
+   *
+   * It stores a object of EntityManagerInterface class
    * It is to manage persistance and retriveal Entity object from Database.
    *
    * @var object
    */
   public $em;
-
   /**
-   * __construct
+   *
+   * It stores a object of UserRepository class, it is to fetch data
+   * from user table of database.
+   *
+   * @var object
+   */
+  public $userRepo;
+  /**
+   *
+   * It stores a object of User Class to set and get data from database
+   * through doctrine.
+   *
+   * @var object
+   */
+  public $user;
+  /**
+   *
+   * It stores a object of Registration Class to validate the user input data
+   * at the time of registration.
+   *
+   * @var object
+   */
+  public $registration;
+  /**
    *
    * This constructor initializes object of HomeController Class also provides
    * access to EntityManagerInterface object .
@@ -42,24 +68,19 @@ class HomeController extends AbstractController
   public function __construct(EntityManagerInterface $em)
   {
     $this->em = $em;
+    $this->userRepo = $this->em->getRepository(User::class);
+    $this->user = new User();
+    $this->registration = new Registration($this->em);
   }
   /**
    *
-   * @Route("/", name="index")
-   *  This route to show the first page when user enters the url of the project.
+   * This method to take user credentials and checks in database whether those
+   * are valid or not , if the credentials are valid then send the user to the
+   * dashboard page otherwise return to the login page with error message.
    *
-   * @return Response
-   *  The response is the login page .
-   */
-  public function index(): Response
-  {
-    return $this->render("login.html.twig");
-  }
-  /**
-   * @Route("/login")
-   *  This route to take user credentials and checks in database whether those
-   *  are valid or not , if the credentials are valid then send the user to the
-   *  dashboard page otherwise return to the login page with error message.
+   * @Route("/")
+   *  This route take user to the first page of website and then send user to
+   *  dashboard based on given credentials.
    *
    * @param object $rq
    *  This Request object is to handles the user credentials.
@@ -71,44 +92,36 @@ class HomeController extends AbstractController
   public function login(Request $rq): Response
   {
     $data = $rq->request->all();
-    $user = $this->em->getRepository(User::class)->findOneBy(
-      array(
+    if ($data != NULL) {
+      $user = $this->userRepo->findOneBy([
         "userId" => $data["userId"],
         "password" => md5($data["password"])
-      )
-    );
-    if ($user != NULL) {
-      setcookie("userId", $data["userId"]);
-      setcookie("active", TRUE);
-      return $this->redirect("/dashboard");
-    } else {
-      return $this->render(
-        "login.html.twig",
-        array(
-          "loginErr" => "* Invalid Credentials ."
-        )
-      );
+      ]);
+      if ($user != NULL) {
+        setcookie("userId", $data["userId"]);
+        setcookie("active", TRUE);
+        return $this->redirect("/dashboard");
+      } else {
+        return $this->render(
+          "login.html.twig",
+          array(
+            "loginErr" => "* Invalid Credentials ."
+          )
+        );
+      }
     }
+    return $this->render("login.html.twig");
   }
   /**
    *
-   * @Route("/registerview", name="registerview")
-   *  This route to send user to send user to user registeration page.
+   * This method to take user input data and validate those data and
+   * store the user data in database if the all the data are valid and send
+   * the user to the login page otherwise
+   * return to the registration page with the error .
    *
-   * @return Response
-   *  The response is to registration page.
-   *
-   */
-  public function registerview(): Response
-  {
-    return $this->render("register.html.twig");
-  }
-  /**
    * @Route("/register", name="register")
-   *  This route to take user input data and validate those data and
-   *  store the user data in database if the all the data are valid and send
-   *  the user to the login page otherwise
-   *  return to the registration page with the error .
+   *  This route to take user to the registration page and then send to
+   *  login page based on input data validation.
    *
    * @param object $rq
    *  This Request object is to handles the user input data.
@@ -119,134 +132,58 @@ class HomeController extends AbstractController
    */
   public function register(Request $rq): Response
   {
-    //Error array is initialized to store the error messages based on
-    //the validate function .
-    $error = [];
     $data = $rq->request->all();
-    $image = $rq->files->get('imgUpload');
-    $error = $this->validate($data);
-    $filepath = $this->imgStoring($image, $data["userId"]);
-    if ($error == NULL && $filepath != FALSE) {
-      $user = new User();
-      $user->setUserId($data["userId"]);
-      $user->setUniqueId($this->generateUniqueId($data["emailId"]));
-      $user->setFName($data["fName"]);
-      $user->setLName($data["lName"]);
-      $user->setEmailId($data["emailId"]);
-      $user->setPassword(md5($data["password"]));
-      $user->setProfilePic($filepath);
-      if (!empty($data["cookie"])) {
-        $user->setCookie($data["cookie"]);
-      } else {
-        $user->setCookie("decline");
+    if ($data != NULL) {
+      $image = $rq->files->get('imgUpload');
+      $error = $this->registration->validate($data);
+      $filepath = $this->registration->imgStoring($image, $data["userId"]);
+      if ($error == NULL && $filepath != FALSE) {
+        $uniqueId = $this->registration->generateUniqueId($data["emailId"]);
+        $cookie = !empty($data["cookie"]) ? "accept" : "decline";
+        $this->user->setter($data["userId"], $uniqueId, $data["fName"], $data["lName"], $data["emailId"], $filepath, md5($data["password"]), $cookie);
+        $this->em->persist($this->user);
+        $this->em->flush();
+        return $this->redirect("/");
       }
-      $this->em->persist($user);
-      $this->em->flush();
-      return $this->redirect("/");
+      return $this->render("register.html.twig", array("error" => $error));
     }
-    return $this->render("register.html.twig", array("error" => $error));
-  }
-
-  /**
-   * validate
-   *  This method checks the whether the user gives the valid inputs or not
-   *  and stores the errors in an array and returned it to the calling method.
-   *
-   * @param  array $data
-   *  This method accepts user data in form of an array as parameter.
-   *
-   * @return array
-   *  This method returns the errors in form an array
-   */
-  public function validate(array $data): array
-  {
-    //Initialize error array
-    $error = [];
-    //checks whether the first name contains only alphabet or not .
-    //If first name contains other than alphabets then store the error .
-    if (!(preg_match("/^[a-zA-Z ]*$/", $data["fName"]))) {
-      $error["fName"] = "* first name only contains alphabet.";
-    }
-    //checks whether the last name contains only alphabet or not .
-    //If last name contains other than alphabets then store the error .
-    if (!(preg_match("/^[a-zA-Z ]*$/", $data["lName"]))) {
-      $error["lName"] = "* last name only contains alphabet.";
-    }
-    //checks whether the email id is in valid format or not .
-    //If email id is not in valid format then store the error .
-    if (!(preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/", $data["emailId"]))) {
-      $error["emailId"] = "* not a valid email.";
-    }
-    //checks whether the user id already taken by some other users or not.
-    //If the user id is not free then store the error.
-    if ($this->em->getRepository(User::class)->findBy(array("userId" => $data["userId"])) != NULL) {
-      $error["userId"] = "* UserId already exists.";
-    }
-    //checks whether the password follows the following checkpoints or not:
-    //more than 8 characters
-    //atleast one uppercase and one lowercase and one digit
-    //and one special characters(@, $, #, !, %, *, ?, &).
-    //If the password does not match these conditions then store the error.
-    if (!(preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/", $data["password"]))) {
-      $error["password"] = "* weak password.";
-    }
-    return $error;
-  }
-
-  /**
-   * imgStoring
-   *  This method is used to store the user profile picture in local storage.
-   *  And returns the filepath to store that in database.
-   *
-   * @param $image
-   *  Accepts the HTTPFoundation files object
-   *
-   * @param $userId
-   *  Accepts the user id of perticular user.
-   *
-   * @return string
-   *  Returns the filepath of the stored profile picture.
-   */
-  public function imgStoring($image, $userId)
-  {
-    if ($image != NULL) {
-      $targetFile = $userId . "-profile-pic-" . $image->getClientOriginalName();
-      $image->move("assets/img/", $targetFile);
-      return "/assets/img/" . $targetFile;
-    } else {
-      return "/assets/img/default-dp.jpg";
-    }
+    return $this->render("register.html.twig");
   }
   /**
-   * generateUniqueId
    *
-   *  This method geneate a unique Id for the user which stores the emailId
-   *  and the time of registration.
+   * This method destroys the cookies which are set at the time of login.
    *
-   * @param  string $email
-   *  Accepts the user email as parameter.
-   *
-   * @return string
-   *  Returns the generated uniqueId for the user.
-   */
-  public function generateUniqueId(string $email): string
-  {
-    $t = time();
-    return date("Y-m-d H:i:s", $t) . $email;
-  }
-  /**
    * @Route("/logout", name = "logout")
-   *  This route destroy the cookies which are set at the time of login and
-   *  logout the user and returns to the login page.
+   *  This route logout the user and returns to the login page.
    *
    * @return Response
    *  Returns the response to login page.
    */
   public function logout(): Response
   {
-    setcookie("active","",0);
-    setcookie("userId","",0);
+    setcookie("active", "", 0);
+    setcookie("userId", "", 0);
     return $this->redirect("/");
+  }
+  /**
+   * This method used in ajax call of from the registration page when user
+   * enters the user id field then it checks whether the userId is available
+   * or not.
+   *
+   * @Route("/validuserid", name="availableuserid")
+   *  This route used to send message to the ajax function if user id
+   *  is already used.
+   *
+   * @param object $rq
+   *  This Request object is to handles the user input data.
+   *
+   * @return JsonResponse
+   *  Returns Json data to the calling ajax function.
+   */
+  public function validUserId(Request $rq): JsonResponse
+  {
+    $error = $this->registration->availableUserId($rq->get("userId"));
+    return new JsonResponse(json_encode(["isAvialableUserId" => $error]));
   }
 }
 ?>

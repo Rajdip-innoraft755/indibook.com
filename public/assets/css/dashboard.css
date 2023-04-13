@@ -310,7 +310,7 @@ body {
   background: var(--primary-color);
 }
 .post-section {
-  display: none;
+  /* display: none; */
 }
 .post-section:nth-child(1) {
   display: block;

@@ -38,21 +38,24 @@ class PostDataRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAll()
+    {
+        return $this->findBy(array(), array('postId' => 'DESC'));
+    }
+    public function findAllByPostAuthor($value): array
+    {
+        return $this->createQueryBuilder('post')
+            ->andWhere('post.postAuthor = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    /**
 //     * @return PostData[] Returns an array of PostData objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+
 
 //    public function findOneBySomeField($value): ?PostData
 //    {

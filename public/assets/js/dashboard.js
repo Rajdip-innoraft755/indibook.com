@@ -1,19 +1,5 @@
 $(document).ready(function(){
-  if(localStorage.getItem("theme") == "dark"){
-    $(document.body).addClass("dark-theme");
-    $("#theme").addClass("fa-rotate-180");
-  }
-  $("#theme").click(function(){
-    console.log("hi");
-    $(document.body).toggleClass("dark-theme");
-    if($(document.body).attr("class")=="dark-theme"){
-      localStorage.setItem("theme","dark");
-    }
-    else{
-      localStorage.setItem("theme","light");
-    }
-    $(this).toggleClass("fa-rotate-180");
-  });
+
   $(".loader").fadeOut(2000);
   $(".react").click(function(){
     $(this).toggleClass("fa-regular fa-solid");
@@ -54,5 +40,5 @@ $(document).ready(function(){
     console.log(stop);
     $("#"+stop).css("display","none");
     x++;
-  });  
+  });
 });

@@ -20,7 +20,6 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
-
     public function save(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -39,6 +38,15 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByUserIdExcept($value): array
+    {
+        return $this->createQueryBuilder('user')
+            ->andWhere('user.userId != :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

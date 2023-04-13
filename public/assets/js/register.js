@@ -45,7 +45,7 @@ $(document).ready(function () {
       disableBtn();
     } else {
       $.ajax({
-        url: "/home/availableUser/emailid",
+        url: "available_emailid",
         method: "POST",
         data: { emailId: $(this).val() },
         datatype: "JSON",
@@ -62,8 +62,7 @@ $(document).ready(function () {
       enableBtn();
     }
   });
-  $("#pass").click(function () {
-    console.log("hi");
+  $("#pass").focus(function () {
     $(".pass-instruction").css("display", "block");
   });
   $("#pass").blur(function () {
@@ -85,7 +84,7 @@ $(document).ready(function () {
     $.debounce(300, function () {
       var userid = $(this).val();
       $.ajax({
-        url: "/home/availableUser/userid",
+        url: "/validuserid",
         method: "POST",
         data: { userId: userid },
         datatype: "JSON",
