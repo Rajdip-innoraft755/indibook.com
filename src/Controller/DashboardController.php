@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\PostData;
 use App\Services\Posts;
+use App\Entity\PostData;
+use App\Services\Registration;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,10 +68,9 @@ class DashboardController extends AbstractController
    */
   public $postService;
   /**
-   * __construct
    *
-   * This constructor initializes object of DashboardController Class also provides
-   * access to EntityManagerInterface object .
+   * This constructor initializes object of DashboardController Class also
+   * provides access to EntityManagerInterface object .
    *
    * @param  object $em
    *  It is to manage persistance and retriveal Entity object from Database.
@@ -81,11 +81,11 @@ class DashboardController extends AbstractController
   public function __construct(EntityManagerInterface $em)
   {
     $this->em = $em;
-    $this->postRepo = $this->em->getRepository(PostData::class);
-    $this->userRepo = $this->em->getRepository(User::class);
     $this->user = new User();
     $this->post = new PostData();
     $this->postService = new Posts();
+    $this->userRepo = $this->em->getRepository(User::class);
+    $this->postRepo = $this->em->getRepository(PostData::class);
     if (isset($_COOKIE["userId"])) {
       $this->userId = $_COOKIE["userId"];
     }
@@ -155,7 +155,7 @@ class DashboardController extends AbstractController
    * This method is to fetch the posts and details of the perticular user whose
    * profile the current user want to visit.
    *
-   * @Route("/user","othersprofile")
+   * @Route("/user", name = "othersprofile")
    *  This route is to take user to the others user profile page after
    *  fetching all the related data.
    *
@@ -179,6 +179,30 @@ class DashboardController extends AbstractController
       "otherUser" => $otherUser,
       "userInfo" => $user,
       "otherUserPost" => $otherUserPost,
+    ]);
+  }
+  /**
+   * @Route("/profile", name = "profile")
+   */
+  public function profile(Request $rq): Response
+  {
+    $user = $this->userRepo->findOneBy([
+      "userId" => $this->userId,
+    ]);
+    if ($rq->request->all() != NULL && md5($rq->request->get("password")) == $user->getPassword()) {
+      $user->setFName($rq->request->get('fName'));
+      $user->setLName($rq->request->get('lName'));
+      $user->setEmailId($rq->request->get('emailId'));
+      $user->setBio($rq->request->get('bio'));
+      if($rq->files->get("imgUpload") != NULL){
+        $registration = new Registration($this->em);
+        $user->setProfilePic($registration->imgStoring($rq->files->get("imgUpload"),$this->userId));
+      }
+      $this->em->persist($user);
+      $this->em->flush();
+    }
+    return $this->render("profile.html.twig", [
+      "userInfo" => $user,
     ]);
   }
 }

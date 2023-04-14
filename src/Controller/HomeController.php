@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use Exception;
 use App\Entity\User;
 use App\Services\Registration;
+use App\Services\ForgotPassword;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,6 +54,7 @@ class HomeController extends AbstractController
    * @var object
    */
   public $registration;
+  public $forgotPassword;
   /**
    *
    * This constructor initializes object of HomeController Class also provides
@@ -68,9 +69,10 @@ class HomeController extends AbstractController
   public function __construct(EntityManagerInterface $em)
   {
     $this->em = $em;
-    $this->userRepo = $this->em->getRepository(User::class);
     $this->user = new User();
     $this->registration = new Registration($this->em);
+    $this->forgotPassword = new ForgotPassword($this->em);
+    $this->userRepo = $this->em->getRepository(User::class);
   }
   /**
    *
@@ -185,6 +187,111 @@ class HomeController extends AbstractController
     $error = $this->registration->availableUserId($rq->get("userId"));
     return new JsonResponse(json_encode(["isAvialableUserId" => $error]));
   }
+  /**
+   * This method is the render the forgot password page on
+   * which the user can reset his/her password.
+   *
+   * @Route("/forgotpassword", name = "forgotPassword")
+   *  THis route to take the user to the forgot password page.
+   *
+   * @return Response
+   *  Returns Response to the forgot password page.
+   */
+
+  public function forgotPassword(Request $rq): Response
+  {
+    return $this->render("forgotpassword.html.twig");
+  }
+  /**
+   * This method is used for verify the user id entered by the user.
+   *
+   * @Route("/forgotpassword/checkuserid")
+   *  This route used to send message to the ajax function if user id
+   *  is valid or not.
+   *
+   * @param Request $rq
+   *  Accepts the Request from the ajax call.
+   *
+   * @return JsonResponse
+   *  Returns Json data to the calling ajax function.
+   */
+  public function verifyUser(Request $rq): JsonResponse
+  {
+   $message = $this->forgotPassword->checkUser($rq->request->get("userId"));
+   return new JsonResponse(json_encode([
+    "isValidUser" => $message,
+   ]));
+  }
+  /**
+   * This method is to send the otp to the user email id and returns
+   * the success message to the user.
+   *
+   * @Route("/forgotpassword/sendotp")
+   *  This route used to send message to the ajax function whether the mail sent
+   *  successfully or not.
+   *
+   * @param Request $rq
+   *  Accepts the Request from the ajax call.
+   *
+   * @return JsonResponse
+   *  Returns Json data to the calling ajax function.
+   */
+  public function sendOtp(Request $rq): JsonResponse
+  {
+    $message = $this->forgotPassword->sendOtp();
+    return new JsonResponse(json_encode([
+      "otpSendMessage" => $message,
+    ]));
+  }
+  /**
+   * This method verify the otp entered by the user and returns the
+   * message accordingly.
+   *
+   * @Route("/forgotpassword/verifyotp")
+   *  This route used to send message to the ajax function whether the
+   *  otp is correct or not.
+   *
+   * @param Request $rq
+   *  Accepts the Request from the ajax call.
+   *
+   * @return JsonResponse
+   *  Returns Json data to the calling ajax function.
+   */
+
+  public function verifyOtp(Request $rq): JsonResponse
+  {
+    $message = $this->forgotPassword->verifyOtp($rq->request->get('otp'));
+    return new JsonResponse(json_encode([
+      "verifyOtp" => $message,
+    ]));
+  }
+  /**
+   * This method is to reset the password of the user basically it stores
+   * the new password entered by the user in database of that perticular user
+   * and send a success message.
+   *
+   * @Route("/forgotpassword/reset")
+   *  This route used to reset the password send message to the ajax
+   *  function that the password reset successfully.
+   *
+   * @param Request $rq
+   *  Accepts the Request from the ajax call.
+   *
+   * @return JsonResponse
+   *  Returns Json data to the calling ajax function.
+   */
+  public function resetPassword(Request $rq): JsonResponse
+  {
+    $user = $this->userRepo->findOneBy([
+      "userId" => $rq->request->get("userid"),
+    ]);
+    $user->setPassword(md5($rq->request->get("password")));
+    $this->em->persist($user);
+    $this->em->flush();
+    return new JsonResponse(json_encode([
+      "resetPassword" =>
+      "Password changed successfully please login with your new password",
+    ]));
+  }
 }
 ?>
-

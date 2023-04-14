@@ -13,4 +13,5 @@ public/assets/js/jquery.min.js
 *.png
 *.gif
 .env
+/src/Services/Secrets.php
 ###< symfony/framework-bundle ###

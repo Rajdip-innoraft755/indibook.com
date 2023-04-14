@@ -29,7 +29,7 @@ class Registration {
   /**
    * __construct
    *
-   * This constructor initializes object of HomeController Class also provides
+   * This constructor initializes object of Register Class also provides
    * access to EntityManagerInterface object .
    *
    * @param  object $em

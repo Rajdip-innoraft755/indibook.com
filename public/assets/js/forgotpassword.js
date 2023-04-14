@@ -5,13 +5,15 @@ $(document).ready(function () {
     userid = $(this).val();
     if (userid.length != 0) {
       $.ajax({
-        url: "/home/validUser",
+        url: "/forgotpassword/checkuserid",
         method: "POST",
         data: { userId: userid },
         datatype: "text",
-        success: function (result) {
-          $("#userId>.error").html(result);
-          if (result == "* valid user ID.") {
+        success: function (data) {
+          var isValidUser = jQuery.parseJSON(data)["isValidUser"];
+          $("#userId>.error").html(isValidUser);
+          console.log($("#userId>.error").html());
+          if (isValidUser == "* Valid user ID.") {
             $("#send-otp").attr("disabled", false);
           }
         },
@@ -21,17 +23,21 @@ $(document).ready(function () {
 
   $("#send-otp").click(function () {
     $.ajax({
-      url: "/home/forgotpassword/sendmail",
+      url: "/forgotpassword/sendotp",
       method: "POST",
       data: { userId: userid },
       datatype: "text",
       beforeSend: function () {
         $(".loader").show();
       },
-      success: function (result) {
-        $("#userId>.error").html(result);
+      success: function (data) {
+        var otpSendMessage = jQuery.parseJSON(data)["otpSendMessage"];
+        $("#userId>.error").html(otpSendMessage);
         $(".loader").hide();
-        if (result == "* OTP sent in your registered mail Id successfully") {
+        if (
+          otpSendMessage ==
+          "* OTP sent in your registered mail Id successfully"
+        ) {
           $("#otp-input").attr("disabled", false);
           $("#verify-otp").attr("disabled", false);
         }
@@ -42,17 +48,18 @@ $(document).ready(function () {
   $("#verify-otp").click(function () {
     if ($("#otp-input").val().length != 0) {
       $.ajax({
-        url: "/home/forgotpassword/verifyotp",
+        url: "/forgotpassword/verifyotp",
         method: "POST",
         data: { otp: $("#otp-input").val() },
         datatype: "text",
         beforeSend: function () {
           $(".loader").show();
         },
-        success: function (result) {
+        success: function (data) {
           $(".loader").hide();
-          $("#otp>.error").html(result);
-          if (result == "* correct") {
+          var verifyOtp = jQuery.parseJSON(data)["verifyOtp"];
+          $("#otp>.error").html(verifyOtp);
+          if (verifyOtp == "* correct otp") {
             $("#pass").attr("disabled", false);
             $("#reset-password").attr("disabled", false);
           }
@@ -70,16 +77,17 @@ $(document).ready(function () {
   $("#reset-password").click(function () {
     if ($("#pass").val().length != 0) {
       $.ajax({
-        url: "/home/forgotpassword/reset",
+        url: "/forgotpassword/reset",
         method: "POST",
-        data: { password: $("#pass").val() },
+        data: { userid: userid , password: $("#pass").val() },
         datatype: "text",
         beforeSend: function () {
           $(".loader").show();
         },
-        success: function (result) {
+        success: function (data) {
+          var resetPassword = jQuery.parseJSON(data)["resetPassword"];
           $(".loader").hide();
-          $("#password>.error").html(result);
+          $("#password>.error").html(resetPassword);
         },
       });
     }
@@ -89,20 +97,5 @@ $(document).ready(function () {
     $(this).toggleClass("fa-eye fa-eye-slash");
     var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
     $("#pass").attr("type", type);
-  });
-  if(localStorage.getItem("theme") == "dark"){
-    $(document.body).addClass("dark-theme");
-    $("#theme-btn").addClass("fa-rotate-180");
-  }
-  $("#theme").click(function(){
-    console.log("hi");
-    $(document.body).toggleClass("dark-theme");
-    if($(document.body).attr("class")=="dark-theme"){
-      localStorage.setItem("theme","dark");
-    }
-    else{
-      localStorage.setItem("theme","light");
-    }
-    $("#theme-btn").toggleClass("fa-rotate-180");
   });
 });

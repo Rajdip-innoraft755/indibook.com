@@ -47,6 +47,7 @@ class PostDataRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('post')
             ->andWhere('post.postAuthor = :val')
             ->setParameter('val', $value)
+            ->addOrderBy('post.postId', 'DESC')
             ->getQuery()
             ->getResult()
         ;
