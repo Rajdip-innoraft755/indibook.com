@@ -11,72 +11,81 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+/**
+ * DashboardController, this controller is to manage the the services after user
+ * successfully logged in. The main services provided by this controller are
+ * fetch post data, add post, update user's profile, view other user's profile.
+ *
+ * @author rajdip <rajdip.roy@innoraft.com>
+ */
 class DashboardController extends AbstractController
 {
   /**
    * This is a object of EntityManagerInterface class
    * It is to manage persistance and retriveal Entity object from Database.
    *
-   * @var object
+   *   @var object
    */
   public $em;
+
   /**
-   *
    * It stores a object of User Class to set and get data from database
    * through doctrine.
    *
-   * @var object
+   *   @var object
    */
   public $user;
+
   /**
-   *
    * It stores a object of PostData Class to set and get data from database
    * through doctrine.
    *
-   * @var object
+   *   @var object
    */
   public $post;
+
   /**
-   *
    * It stores a object of PostDataRepository class, it is to fetch data
    * from user table of database.
    *
-   * @var object
+   *   @var object
    */
   public $postRepo;
+
   /**
-   *
    * It stores a object of UserRepository class, it is to fetch data
    * from user table of database.
    *
-   * @var object
+   *   @var object
    */
   public $userRepo;
+
   /**
    * It stores the userId of the user who currently logged in and it is fetched
    * from cookie.
    *
-   * @var string
+   *   @var string
    */
   public $userId;
+
   /**
-   *
    * It stores a object of Posts Class to provide the services required at the
    * time of retrieve the post and add new post.
    *
-   * @var object
+   *   @var object
    */
   public $postService;
+
   /**
-   *
    * This constructor initializes object of DashboardController Class also
    * provides access to EntityManagerInterface object .
    *
-   * @param  object $em
-   *  It is to manage persistance and retriveal Entity object from Database.
+   *   @param  object $em
+   *     It is to manage persistance and retriveal Entity object from Database.
    *
-   * @return void
-   *  Constructor returns nothing .
+   *   @return void
+   *     Constructor returns nothing .
    */
   public function __construct(EntityManagerInterface $em)
   {
@@ -90,6 +99,7 @@ class DashboardController extends AbstractController
       $this->userId = $_COOKIE["userId"];
     }
   }
+
   /**
    * This method is to show the posts of all users, the lists of other
    * users and the information of user,who logged in currently.Basically it
@@ -99,12 +109,12 @@ class DashboardController extends AbstractController
    *  It takes the user to the dashboard page after login succesfully and it
    *  redirects to login page if user try to reach this page without login.
    *
-   * @param object $rq
-   *  This Request object is to handles the user credentials.
+   *   @param object $rq
+   *     This Request object is to handles the user credentials.
    *
-   * @return Response
-   *  Based on the validation the response is to either dashboard page or
-   *  the login page with the proper error messages.
+   *   @return Response
+   *     Based on the validation the response is to either dashboard page or
+   *     the login page with the proper error messages.
    */
   public function index(): Response
   {
@@ -117,6 +127,7 @@ class DashboardController extends AbstractController
     }
     return $this->redirect("/");
   }
+
   /**
    * This method used when user try add a new post, it stores the post data
    * in database and redirects to dashboard with loading the new post.
@@ -125,11 +136,11 @@ class DashboardController extends AbstractController
    *  This route does not take user to a new page it redirects user to the
    *  dashboard after store the new post data.
    *
-   * @param object $rq
-   *  This Request object is to handles the post data.
+   *   @param object $rq
+   *     This Request object is to handles the post data.
    *
-   * @return Response
-   *  Redirects to the dashboard page.
+   *   @return Response
+   *     Redirects to the dashboard page.
    */
   public function makePost(Request $rq): Response
   {
@@ -151,6 +162,7 @@ class DashboardController extends AbstractController
     }
     return $this->redirect("/dashboard");
   }
+
   /**
    * This method is to fetch the posts and details of the perticular user whose
    * profile the current user want to visit.
@@ -159,12 +171,12 @@ class DashboardController extends AbstractController
    *  This route is to take user to the others user profile page after
    *  fetching all the related data.
    *
-   * @param object $rq
-   *  This Request object is to take the user id of the user whose
-   *  profile the current user want to visit.
+   *   @param object $rq
+   *     This Request object is to take the user id of the user whose
+   *     profile the current user want to visit.
    *
-   * @return Response
-   *  Takes user to the others user profile page.
+   *   @return Response
+   *     Takes user to the others user profile page.
    */
   public function user(Request $rq): Response
   {
@@ -181,8 +193,18 @@ class DashboardController extends AbstractController
       "otherUserPost" => $otherUserPost,
     ]);
   }
+
   /**
+   * This method is to show the user profile page and made the changes in
+   * database if user updates any information about himself.
+   *
    * @Route("/profile", name = "profile")
+   *
+   *    @param object $rq
+   *     This Request object is to take the updated user information data .
+   *
+   *   @return Response
+   *     Takes user to the user profile page.
    */
   public function profile(Request $rq): Response
   {

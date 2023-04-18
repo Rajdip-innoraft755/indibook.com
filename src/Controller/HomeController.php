@@ -13,58 +13,64 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- *
  * HomeController, this controller is to manage the register user through
  * Registration class  and handles the login process also , On sucessful login
  * this controller redirects to DashboardController.
  *
- * @author rajdip <rajdip.roy@innoraft.com>
+ *   @author rajdip <rajdip.roy@innoraft.com>
  */
 class HomeController extends AbstractController
 {
   /**
-   *
    * It stores a object of EntityManagerInterface class
    * It is to manage persistance and retriveal Entity object from Database.
    *
-   * @var object
+   *   @var object
    */
   public $em;
+
   /**
-   *
    * It stores a object of UserRepository class, it is to fetch data
    * from user table of database.
    *
-   * @var object
+   *   @var object
    */
   public $userRepo;
+
   /**
-   *
    * It stores a object of User Class to set and get data from database
    * through doctrine.
    *
-   * @var object
+   *   @var object
    */
   public $user;
+
   /**
-   *
    * It stores a object of Registration Class to validate the user input data
    * at the time of registration.
    *
-   * @var object
+   *   @var object
    */
   public $registration;
+
+  /**
+   * It stores a object of ForgotPassword Class to validate user id, send otp,
+   * verify otp.
+   *
+   *   @var object
+   */
   public $forgotPassword;
+
   /**
    *
    * This constructor initializes object of HomeController Class also provides
    * access to EntityManagerInterface object .
    *
-   * @param  object $em
-   *  It is to manage persistance and retriveal Entity object from Database.
+   *   @param  object $em
+   *     It is to manage persistance and retriveal Entity object from Database.
    *
-   * @return void
-   *  Constructor returns nothing .
+   *   @return void
+   *     Constructor returns nothing .
    */
   public function __construct(EntityManagerInterface $em)
   {
@@ -74,8 +80,8 @@ class HomeController extends AbstractController
     $this->forgotPassword = new ForgotPassword($this->em);
     $this->userRepo = $this->em->getRepository(User::class);
   }
+
   /**
-   *
    * This method to take user credentials and checks in database whether those
    * are valid or not , if the credentials are valid then send the user to the
    * dashboard page otherwise return to the login page with error message.
@@ -84,12 +90,12 @@ class HomeController extends AbstractController
    *  This route take user to the first page of website and then send user to
    *  dashboard based on given credentials.
    *
-   * @param object $rq
-   *  This Request object is to handles the user credentials.
+   *   @param object $rq
+   *     This Request object is to handles the user credentials.
    *
-   * @return Response
-   *  Based on the validation the response is to either dashboard page or
-   *  the login page with the proper error messages.
+   *   @return Response
+   *     Based on the validation the response is to either dashboard page or
+   *     the login page with the proper error messages.
    */
   public function login(Request $rq): Response
   {
@@ -104,18 +110,13 @@ class HomeController extends AbstractController
         setcookie("active", TRUE);
         return $this->redirect("/dashboard");
       } else {
-        return $this->render(
-          "login.html.twig",
-          array(
-            "loginErr" => "* Invalid Credentials ."
-          )
-        );
+        return $this->render("login.html.twig",
+        [ "loginErr" => "* Invalid Credentials ." ]);
       }
     }
     return $this->render("login.html.twig");
   }
   /**
-   *
    * This method to take user input data and validate those data and
    * store the user data in database if the all the data are valid and send
    * the user to the login page otherwise
@@ -125,12 +126,12 @@ class HomeController extends AbstractController
    *  This route to take user to the registration page and then send to
    *  login page based on input data validation.
    *
-   * @param object $rq
-   *  This Request object is to handles the user input data.
+   *   @param object $rq
+   *     This Request object is to handles the user input data.
    *
-   * @return Response
-   *  Based on the validation the response is to either login page or
-   *  the restration page with the proper error messages.
+   *   @return Response
+   *     Based on the validation the response is to either login page or
+   *     the restration page with the proper error messages.
    */
   public function register(Request $rq): Response
   {
@@ -151,15 +152,15 @@ class HomeController extends AbstractController
     }
     return $this->render("register.html.twig");
   }
+
   /**
-   *
    * This method destroys the cookies which are set at the time of login.
    *
    * @Route("/logout", name = "logout")
    *  This route logout the user and returns to the login page.
    *
-   * @return Response
-   *  Returns the response to login page.
+   *   @return Response
+   *     Returns the response to login page.
    */
   public function logout(): Response
   {
@@ -167,6 +168,7 @@ class HomeController extends AbstractController
     setcookie("userId", "", 0);
     return $this->redirect("/");
   }
+
   /**
    * This method used in ajax call of from the registration page when user
    * enters the user id field then it checks whether the userId is available
@@ -176,17 +178,18 @@ class HomeController extends AbstractController
    *  This route used to send message to the ajax function if user id
    *  is already used.
    *
-   * @param object $rq
-   *  This Request object is to handles the user input data.
+   *   @param object $rq
+   *     This Request object is to handles the user input data.
    *
-   * @return JsonResponse
-   *  Returns Json data to the calling ajax function.
+   *   @return JsonResponse
+   *     Returns Json data to the calling ajax function.
    */
   public function validUserId(Request $rq): JsonResponse
   {
     $error = $this->registration->availableUserId($rq->get("userId"));
     return new JsonResponse(json_encode(["isAvialableUserId" => $error]));
   }
+
   /**
    * This method is the render the forgot password page on
    * which the user can reset his/her password.
@@ -194,14 +197,14 @@ class HomeController extends AbstractController
    * @Route("/forgotpassword", name = "forgotPassword")
    *  THis route to take the user to the forgot password page.
    *
-   * @return Response
-   *  Returns Response to the forgot password page.
+   *   @return Response
+   *     Returns Response to the forgot password page.
    */
-
   public function forgotPassword(Request $rq): Response
   {
     return $this->render("forgotpassword.html.twig");
   }
+
   /**
    * This method is used for verify the user id entered by the user.
    *
@@ -209,11 +212,11 @@ class HomeController extends AbstractController
    *  This route used to send message to the ajax function if user id
    *  is valid or not.
    *
-   * @param Request $rq
-   *  Accepts the Request from the ajax call.
+   *   @param Request $rq
+   *     Accepts the Request from the ajax call.
    *
-   * @return JsonResponse
-   *  Returns Json data to the calling ajax function.
+   *   @return JsonResponse
+   *     Returns Json data to the calling ajax function.
    */
   public function verifyUser(Request $rq): JsonResponse
   {
@@ -222,6 +225,7 @@ class HomeController extends AbstractController
     "isValidUser" => $message,
    ]));
   }
+
   /**
    * This method is to send the otp to the user email id and returns
    * the success message to the user.
@@ -230,19 +234,17 @@ class HomeController extends AbstractController
    *  This route used to send message to the ajax function whether the mail sent
    *  successfully or not.
    *
-   * @param Request $rq
-   *  Accepts the Request from the ajax call.
-   *
-   * @return JsonResponse
-   *  Returns Json data to the calling ajax function.
+   *   @return JsonResponse
+   *     Returns Json data to the calling ajax function.
    */
-  public function sendOtp(Request $rq): JsonResponse
+  public function sendOtp(): JsonResponse
   {
     $message = $this->forgotPassword->sendOtp();
     return new JsonResponse(json_encode([
       "otpSendMessage" => $message,
     ]));
   }
+
   /**
    * This method verify the otp entered by the user and returns the
    * message accordingly.
@@ -251,13 +253,12 @@ class HomeController extends AbstractController
    *  This route used to send message to the ajax function whether the
    *  otp is correct or not.
    *
-   * @param Request $rq
-   *  Accepts the Request from the ajax call.
+   *   @param Request $rq
+   *     Accepts the Request from the ajax call.
    *
-   * @return JsonResponse
-   *  Returns Json data to the calling ajax function.
+   *   @return JsonResponse
+   *     Returns Json data to the calling ajax function.
    */
-
   public function verifyOtp(Request $rq): JsonResponse
   {
     $message = $this->forgotPassword->verifyOtp($rq->request->get('otp'));
@@ -265,6 +266,7 @@ class HomeController extends AbstractController
       "verifyOtp" => $message,
     ]));
   }
+
   /**
    * This method is to reset the password of the user basically it stores
    * the new password entered by the user in database of that perticular user
@@ -274,11 +276,11 @@ class HomeController extends AbstractController
    *  This route used to reset the password send message to the ajax
    *  function that the password reset successfully.
    *
-   * @param Request $rq
-   *  Accepts the Request from the ajax call.
+   *   @param Request $rq
+   *     Accepts the Request from the ajax call.
    *
-   * @return JsonResponse
-   *  Returns Json data to the calling ajax function.
+   *   @return JsonResponse
+   *     Returns Json data to the calling ajax function.
    */
   public function resetPassword(Request $rq): JsonResponse
   {

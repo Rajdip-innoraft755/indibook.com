@@ -13,7 +13,6 @@ $(document).ready(function () {
   $(".cookie-button").click(function(){
     if($(this).attr("id") == "accept-cokkie") {
       $.cookie("cookie-policy","accept",{path: '/', expires: 15/1440 });
-      // 0.2395 is for store it for 15 mins and it calculates as per GMT
     }
     else {
       $.cookie("cookie-policy","decline",{path: '/', expires: 15/1440 });

@@ -8,8 +8,11 @@ use PHPMailer\PHPMailer\Exception;
 // Require this file to use the variable which are defined as
 // constant inside this file.
 require '../src/Services/Secrets.php';
+
 /**
  * Mailer class is to send mail to a perticular email through PHPMailer.
+ *
+ *   @author rajdip <rajdip.roy@innoraft.com>
  */
 class Mailer
 {
@@ -19,17 +22,17 @@ class Mailer
    * PHPMailer and it uses the constant declared in Secret.php as the
    * credentials needed by PHPMailer.
    *
-   * @param string $address
-   *  Takes email address to which the mail need to send.
+   *   @param string $address
+   *     Takes email address to which the mail need to send.
    *
-   * @param string $subject
-   *  Takes the email subject.
+   *   @param string $subject
+   *     Takes the email subject.
    *
-   * @param string $body
-   *  Takes the body of the mail which is sent in the email.
+   *   @param string $body
+   *     Takes the body of the mail which is sent in the email.
    *
-   * @return void
-   *  This method is just to send mail returns nothing.
+   *   @return void
+   *     This method is just to send mail returns nothing.
    *
    */
   public function sendmail(string $address, string $subject, string $body)
