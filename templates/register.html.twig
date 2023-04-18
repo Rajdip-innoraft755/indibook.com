@@ -5,8 +5,10 @@
 {% endblock %}
 {% block js %}
 	{{ parent() }}
-	<script src="{{ asset("assets/js/register.js") }}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js" integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="{{ asset("assets/js/validate.js") }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"
+	integrity="sha512-JZSo0h5TONFYmyLMqp8k4oPhuo6yNk9mHM+FY50aBjpypfofqtEWsAgRDQm94ImLCzSaHeqNvYuD9382CEn2zw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}
 
 {% block sidebar %}
@@ -104,7 +106,7 @@
 
 					<div class="field btn">
 						<div class="btn-layer"></div>
-						<input type="submit" value="Register" id="signup">
+						<input type="submit" value="Register" id="submit-btn">
 					</div>
 
 

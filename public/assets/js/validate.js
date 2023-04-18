@@ -1,21 +1,54 @@
+/**
+ * Jquery works after the document loaded fully.
+ */
 $(document).ready(function () {
-  var $isAlpha = /^[a-zA-Z ]*$/;
-  var $isValidPassword =
+  // It is the regEx to check whether the input contains only alphabet or not.
+  const $isAlpha = /^[a-zA-Z ]*$/;
+
+  // It is the regEx whether the email is in valid format or not.
+  const $isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  // It is the regEx to Checks whether the password follows the
+  // following checkpoints or not more than 8 characters atleast
+  // one uppercase and one lowercase and one digit
+  // and one special characters(@, $, #, !, %, *, ?, &).
+  // If the password does not match these conditions then store the error.
+  const $isValidPassword =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/;
-  var $isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  /**
+   * disableBtn is the method to disable submit button if any error
+   * presents in the form data.
+   *
+   *   @return void
+   *     This function returns nothing.
+   */
   function disableBtn() {
     if ($(".error").text() != "") {
-      $("#signup").attr("disabled", true);
+      $("#submit-btn").attr("disabled", true);
     }
   }
+
+  /**
+   * enableBtn is the method to enable submit button if no error
+   * presents in the form data.
+   *
+   *   @return void
+   *     This function returns nothing.
+   */
   function enableBtn() {
     if (
       $.trim($(".error").text()) == "" ||
       $.trim($(".error").text()) == "Strong Password"
     ) {
-      $("#signup").attr("disabled", false);
+      $("#submit-btn").attr("disabled", false);
     }
   }
+
+  /**
+   * It is to checkes whether the first name contains only alphabet or not,
+   * show error and disable/enable submit button accordingly.
+   */
   $("#fName>input").blur(function () {
     if (!$isAlpha.test($(this).val())) {
       $("#fName>.error").html("* only alphapets are allowed.");
@@ -26,6 +59,10 @@ $(document).ready(function () {
     }
   });
 
+  /**
+   * It is to checkes whether the last name contains only alphabet or not,
+   * show error and disable/enable submit button accordingly.
+   */
   $("#lName>input").blur(function () {
     if (!$isAlpha.test($(this).val())) {
       $("#lName>.error").html("* only alphapets are allowed.");
@@ -36,39 +73,24 @@ $(document).ready(function () {
     }
   });
 
-  $("#file-upload-btn").click(function () {
-    $("#file-upload-input").click();
-  });
+  /**
+   * It is to checkes whether the email is in proper format or not,
+   * show error and disable/enable submit button accordingly.
+   */
   $("#emailId>input").blur(function () {
     if ($(this).val() != "" && !$isValidEmail.test($(this).val())) {
       $("#emailId>.error").html("* not a valid Email Id.");
       disableBtn();
     } else {
-      $.ajax({
-        url: "available_emailid",
-        method: "POST",
-        data: { emailId: $(this).val() },
-        datatype: "JSON",
-        success: function (data) {
-          $("#emailId>.error").html(jQuery.parseJSON(data)["isAvialableEmailId"]);
-          if (jQuery.parseJSON(data)["isAvialableEmailId"] == "") {
-            enableBtn();
-          } else {
-            disableBtn();
-          }
-        },
-      });
       $("#emailId>.error").html("");
       enableBtn();
     }
   });
-  $("#pass").focus(function () {
-    $(".pass-instruction").css("display", "block");
-  });
-  $("#pass").blur(function () {
-    $(".pass-instruction").css("display", "none");
-  });
 
+  /**
+   * It is to checkes whether the password is in specified format or not,
+   * show error and disable/enable submit button accordingly.
+   */
   $("#pass").keyup(function () {
     if (!$isValidPassword.test($(this).val())) {
       $("#password>.error").css("color", "red");
@@ -80,6 +102,11 @@ $(document).ready(function () {
       enableBtn();
     }
   });
+
+  /**
+   * It is to checkes whether the user id already exists or not using ajax,
+   * show error and disable/enable submit button accordingly.
+   */
   $("#userId>input").keyup(
     $.debounce(300, function () {
       var userid = $(this).val();
@@ -99,10 +126,4 @@ $(document).ready(function () {
       });
     })
   );
-
-  $("#eye").click(function () {
-    $(this).toggleClass("fa-eye fa-eye-slash");
-    var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
-    $("#pass").attr("type", type);
-  });
 });

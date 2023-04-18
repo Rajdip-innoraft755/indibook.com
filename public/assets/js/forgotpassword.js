@@ -1,8 +1,16 @@
+/**
+ * Jquery works after the document loaded fully.
+ */
 $(document).ready(function () {
+  // At the beginning it disable the send otp button.
   $("#send-otp").attr("disabled", true);
-  var userid;
+
+  /**
+   * It is to check whether the user id is valid or not using ajax based
+   * on the result it activate the send otp button.
+   */
   $("#userId-input").keyup(function () {
-    userid = $(this).val();
+    var userid = $(this).val();
     if (userid.length != 0) {
       $.ajax({
         url: "/forgotpassword/checkuserid",
@@ -21,6 +29,11 @@ $(document).ready(function () {
     }
   });
 
+  /**
+   * It is the send otp to the user using ajax and show the sending
+   * messages to the user and based on the status of sending messages ,
+   * it activate the otp input field, verify otp button.
+   */
   $("#send-otp").click(function () {
     $.ajax({
       url: "/forgotpassword/sendotp",
@@ -35,8 +48,7 @@ $(document).ready(function () {
         $("#userId>.error").html(otpSendMessage);
         $(".loader").hide();
         if (
-          otpSendMessage ==
-          "* OTP sent in your registered mail Id successfully"
+          otpSendMessage == "* OTP sent in your registered mail Id successfully"
         ) {
           $("#otp-input").attr("disabled", false);
           $("#verify-otp").attr("disabled", false);
@@ -45,6 +57,11 @@ $(document).ready(function () {
     });
   });
 
+  /**
+   * It is the verify the whether the input otp is correct or not if the otp is
+   * correct then it activate the password input field and
+   * the reset password button.
+   */
   $("#verify-otp").click(function () {
     if ($("#otp-input").val().length != 0) {
       $.ajax({
@@ -68,18 +85,15 @@ $(document).ready(function () {
     }
   });
 
-  $("#pass").click(function () {
-    alert(
-      "Password should be 8-15 character and contains \n atleast 1 uppcase \n atleast 1" +
-      "lowercase \n atleast 1 special character(@,#.$,?,!,%,&) \n atleast 1 number"
-    );
-  });
+  /**
+   * It is to reset the password and display the success message to the user.
+   */
   $("#reset-password").click(function () {
     if ($("#pass").val().length != 0) {
       $.ajax({
         url: "/forgotpassword/reset",
         method: "POST",
-        data: { userid: userid , password: $("#pass").val() },
+        data: { userid: userid, password: $("#pass").val() },
         datatype: "text",
         beforeSend: function () {
           $(".loader").show();
@@ -91,11 +105,5 @@ $(document).ready(function () {
         },
       });
     }
-  });
-
-  $("#eye").click(function () {
-    $(this).toggleClass("fa-eye fa-eye-slash");
-    var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
-    $("#pass").attr("type", type);
   });
 });

@@ -5,6 +5,7 @@
 {% endblock %}
 {% block js %}
 	{{ parent() }}
+	<script src="{{ asset("assets/js/validate.js")}}"></script>
 	<script src="{{ asset("assets/js/profile.js") }}"></script>
 {% endblock %}
 
@@ -103,7 +104,7 @@
 					</div>
 				</div>
 				<div class="btn">
-					<input type="submit" value="Update Profile" id="update">
+					<input type="submit" value="Update Profile" id="submit-btn">
 				</div>
 			</section>
 		</form>
